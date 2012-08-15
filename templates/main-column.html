@@ -1,1 +1,1 @@
-<div data-bind="template: currentPage() + '-template'"></div>
+<div data-bind="template: {if: pageState, name: currentPage() + '-template', data: pageState}"></div>

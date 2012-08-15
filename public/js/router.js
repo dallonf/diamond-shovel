@@ -1,7 +1,8 @@
 define(function(require, exports, module) {
 
 var Backbone = require('backbone')
-  , appState = require('app-state');
+  , appState = require('app-state')
+  , registerState = require('state/register');
 
 var CustomRouter = Backbone.Router.extend({
   routes: {
@@ -10,11 +11,11 @@ var CustomRouter = Backbone.Router.extend({
   },
 
   index: function() {
-    appState.currentPage('index');
+    appState.setPage('index');
   },
 
   register: function() {
-    appState.currentPage('register');
+    appState.setPage('register', registerState());
   },
 
   start: function() {

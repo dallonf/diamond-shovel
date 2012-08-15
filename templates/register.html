@@ -1,7 +1,7 @@
 <h2>Register</h2>
-<form>
-  <input type="text" placeholder="Username" />
-  <input type="password" placeholder="*******" />
+<form data-bind="submit: register">
+  <input type="text" placeholder="Username" data-bind="value: username" />
+  <input type="password" placeholder="*******" data-bind="value: password" />
   <div>
     <button type="submit" class="btn btn-primary">Login</button>
     <a href="/register" class="btn">Register</a>
