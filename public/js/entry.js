@@ -20,7 +20,10 @@ require.config({
 define(function(require, module, exports) {
 
   var ko = require('knockout')
-    , appState = require('app-state');
+    , appState = require('app-state')
+    , router = require('router');
+
+  router.start();
 
   ko.applyBindings(appState);
 
