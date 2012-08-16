@@ -17,6 +17,10 @@ function create(previousUrl) {
     , confirmPasswordBlurred: ko.observable(false)
   };
 
+  state.goBack = function() {
+    app.navigate(previousUrl || "", {trigger: true});  
+  };
+
   state.register = function() {
     if (state.password() !== state.confirmPassword()) return state.confirmPasswordBlurred(true);
 
@@ -41,7 +45,7 @@ function create(previousUrl) {
       }, function() {
         dpd.users.me(function(user, err) {
           app.currentUser(user);
-          app.navigate(previousUrl || "", {trigger: true});  
+          state.goBack();
         });
       });
     });

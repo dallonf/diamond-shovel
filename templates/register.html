@@ -1,37 +1,40 @@
-<h2>Register</h2>
-<form class="form-horizontal" data-bind="submit: register">
-  <div class="control-group" data-bind="css: {error: usernameError, success: usernameAvailable() === true}">
-    <label class="control-label">Username</label>
-    <div class="controls">
-      <input type="text" class="input-xlarge" data-bind="value: username" />
-      <span class="help-inline" data-bind="text: usernameError"></span>
-      <p class="help-text">This should be your Minecraft in-game name</p>
+<div id="register-form">
+  <h2>Register</h2>
+  <form class="form-horizontal" data-bind="submit: register">
+    <div class="control-group" data-bind="css: {error: usernameError, success: usernameAvailable() === true}">
+      <label class="control-label">Username</label>
+      <div class="controls">
+        <input type="text" class="input-xlarge" data-bind="value: username" />
+        <span class="help-inline" data-bind="text: usernameError"></span>
+        <p class="help-text">This should be your Minecraft in-game name</p>
+      </div>
     </div>
-  </div>
-  <div class="control-group" data-bind="css: {error: confirmPasswordError}">
-    <label class="control-label">Password</label>
-    <div class="controls">
-      <input type="password" class="input-xlarge" data-bind="value: password" />
-      <p class="help-text">This should <em>not</em> be the same as your Minecraft password!</p>
+    <div class="control-group" data-bind="css: {error: confirmPasswordError}">
+      <label class="control-label">Password</label>
+      <div class="controls">
+        <input type="password" class="input-xlarge" data-bind="value: password" />
+        <p class="help-text">This should <em>not</em> be the same as your Minecraft password!</p>
+      </div>
     </div>
-  </div>
-  <div class="control-group" data-bind="css: {error: confirmPasswordError}">
-    <label class="control-label">Confirm Password</label>
-    <div class="controls">
-      <input type="password" class="input-xlarge" data-bind="value: confirmPassword, event: {blur: confirmPasswordBlurred}" />
-      <span class="help-inline" data-bind="text: confirmPasswordError"></span>
+    <div class="control-group" data-bind="css: {error: confirmPasswordError}">
+      <label class="control-label">Confirm Password</label>
+      <div class="controls">
+        <input type="password" class="input-xlarge" data-bind="value: confirmPassword, event: {blur: confirmPasswordBlurred}" />
+        <span class="help-inline" data-bind="text: confirmPasswordError"></span>
+      </div>
     </div>
-  </div>
-  <div class="control-group">
-    <label class="control-label">
-      Email<br />
-      <em>(Optional)</em>
-    </label>
-    <div class="controls">
-      <input type="email" class="input-xlarge" data-bind="value: email" />
+    <div class="control-group">
+      <label class="control-label">
+        Email<br />
+        <em>(Optional)</em>
+      </label>
+      <div class="controls">
+        <input type="email" class="input-xlarge" data-bind="value: email" />
+      </div>
     </div>
-  </div>
-  <div class="form-actions">
-    <button type="submit" class="btn btn-primary">Register</button>
-  </div>
-</form>
+    <div class="form-actions">
+      <button type="submit" class="btn btn-primary">Register</button>
+      <button type="button" class="btn" data-bind="click: goBack">Back</button>
+    </div>
+  </form>
+</div>
