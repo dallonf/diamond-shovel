@@ -20,11 +20,16 @@ require.config({
 define(function(require, module, exports) {
 
   var ko = require('knockout')
-    , appState = require('app-state')
-    , router = require('router');
+    , appState = require('app')
+    , Router = require('router');
 
-  router.start();
 
-  ko.applyBindings(appState);
+  dpd.users.me(function(user, err) {
+    appState.currentUser(user);
+    appState.start();
+    ko.applyBindings(appState);
+  });
+
+  
 
 });

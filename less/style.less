@@ -1,6 +1,9 @@
 @import "bootstrap/bootstrap.less";
+@import "mixins.less";
 
 @spacing: 10px;
+
+@import "user-sidebar.less";
 
 body {
   padding-top: 60px;
@@ -12,4 +15,15 @@ a.disabled {
 
 h2 {
   margin-bottom: @spacing;
+}
+
+#header-link {
+  color: @white;
+
+  &:before {
+    vertical-align: middle;
+    content: url(img/diamond-shovel.png);
+    margin-right: @spacing / 2;
+    display: inline-block;
+  }
 }

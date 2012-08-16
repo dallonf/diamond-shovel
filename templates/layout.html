@@ -7,15 +7,7 @@
     <div data-bind="template: 'main-column-template'"></div>
   </div>
   <div class="span4">
-    <h2>Log In</h2>
-    <form>
-      <input type="text" placeholder="Username" />
-      <input type="password" placeholder="*******" />
-      <div>
-        <button type="submit" class="btn btn-primary">Login</button>
-        <a href="/register" class="btn">Register</a>
-      </div>
-    </form>
+    <div data-bind="template: {name: currentUser() ? 'user-sidebar-template' : 'login-template'}"></div>
   </div>
 </div>
 <!-- /ko -->

@@ -1,0 +1,14 @@
+<!-- ko with: loginState -->
+<h2>Log In</h2>
+<form data-bind="submit: login">
+  <div data-bind="visible: error, text: error" class="alert alert-error"></div>
+  <div class="control-group">
+    <input type="text" placeholder="Username" data-bind="value: username" />
+  </div>
+  <input type="password" placeholder="*******" data-bind="value: password"/>
+  <div>
+    <button type="submit" class="btn btn-primary">Login</button>
+    <a href="/register" class="btn">Register</a>
+  </div>
+</form>
+<!-- /ko -->
