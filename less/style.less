@@ -5,7 +5,12 @@
 
 @import "user-sidebar.less";
 
+html {
+  height: 100%;
+}
+
 body {
+  #gradient > .vertical(#8FA4FF, #B0C6FF);
   padding-top: 60px;
 }
 
@@ -17,8 +22,14 @@ h2 {
   margin-bottom: @spacing;
 }
 
+#app-container {
+  padding: @spacing * 2;
+  background: @white;
+  .box-shadow(0 0 40px rgba(255, 255, 255, 0.8));
+}
+
 #header-link {
-  color: @white;
+  color: @textColor;
 
   &:before {
     vertical-align: middle;
