@@ -3,6 +3,8 @@ define(function(require, exports, module) {
 var ko = require('knockout')
   , app = require('app');
 
+require('bindings/blink');
+
 function create(previousUrl) {
 
   var state = {
@@ -10,6 +12,8 @@ function create(previousUrl) {
     , password: ko.observable()
     , confirmPassword: ko.observable()
     , email: ko.observable()
+
+    , postbox: new ko.subscribable()
 
     , errors: ko.observable({})
 
@@ -22,7 +26,11 @@ function create(previousUrl) {
   };
 
   state.register = function() {
-    if (state.password() !== state.confirmPassword()) return state.confirmPasswordBlurred(true);
+    if (state.password() !== state.confirmPassword()) {
+      state.confirmPasswordBlurred(true);
+      state.postbox.notifySubscribers(true, 'blink');
+      return; 
+    } 
 
     var user = {
         username: state.username()
@@ -34,6 +42,7 @@ function create(previousUrl) {
 
     dpd.users.post(user, function(res, err) {
       if (err) {
+        state.postbox.notifySubscribers(true, 'blink');
         state.errors(err.errors || {});
         if (err.message) alert(err.message);
         return;
