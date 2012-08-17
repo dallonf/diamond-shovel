@@ -1,0 +1,99 @@
+<h2>Plan a Game</h2>
+<div class="alert" data-bind="visible: !$root.currentUser()">
+  <p>You must be logged in to create a game.</p>
+  <a href="/">Back</a>
+</div>
+<div data-bind="if: $root.currentUser()">
+  <form class="form-horizontal">
+    <div class="control-group">
+      <label class="control-label">Game Type</label>
+      <div class="controls">
+        <input type="text" class="input-xlarge" />
+        <span class="help-inline"></span>
+      </div>
+    </div>
+    <div class="control-group">
+      <label class="control-label">Players</label>
+      <div class="controls">
+        <input type="text" class="input-xlarge" />
+        <span class="help-inline"></span>
+      </div>
+    </div>
+    <div class="control-group">
+      <div class="controls">
+        <label class="checkbox">
+          <input type="checkbox" class="input-xlarge" />
+          Public Game
+        </label>
+      </div>
+    </div>
+    <fieldset>
+      <legend>Time</legend>
+      <div class="control-group">
+        <label class="control-label">Date</label>
+        <div class="controls">
+          <select class="input-large">
+            <option>August</option>
+          </select>
+          <input type="text" class="input-mini"></input>
+          <span class="help-inline">(tomorrow)</span>
+        </div>
+      </div>
+      <div class="control-group">
+        <label class="control-label">Time</label>
+        <div class="controls">
+          <select class="input-large">
+            <option>8:00 PM</option>
+          </select>
+          <span class="help-inline">(in 2 hours)</span>
+        </div>
+      </div>
+    </fieldset>
+    <fieldset>
+      <legend>Server Info <em>(optional)</em></legend>
+      <div class="control-group">
+        <label class="control-label">Server IP</label>
+        <div class="controls">
+          <input type="text" class="input-xlarge" placeholder="xxx.xxx.xxx.xxx" />
+        </div>
+      </div>
+      <div class="control-group">
+        <div class="controls">
+          <label class="checkbox">
+            <input type="checkbox" class="input-xlarge" />
+            Using Hamachi
+            <a href="#" title="What is Hamachi?"><i class="icon-question-sign"></i></a>
+          </label>
+        </div>
+      </div>
+      <div>
+        <div class="control-group">
+          <label class="control-label">Hamachi Network ID</label>
+          <div class="controls">
+            <input type="text" class="input-xlarge"/>
+          </div>
+        </div>
+        <div class="control-group">
+          <label class="control-label">Network Password</label>
+          <div class="controls">
+            <input type="text" class="input-xlarge"/>
+          </div>
+        </div>
+      </div>
+    </fieldset>
+    <fieldset>
+      <legend>Description <em>(optional)</em></legend>
+      <div class="control-group">
+        <div class="controls">
+          <textarea class="input-xxlarge" rows="5"></textarea>
+        </div>
+      </div>
+      
+    </fieldset>
+    <div class="form-actions">
+      <button type="submit" class="btn btn-primary">Create</button>
+      <a href="/" class="btn">Back</a>
+    </div>
+  </form>
+  
+</div>

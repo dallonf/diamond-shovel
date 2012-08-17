@@ -26,6 +26,7 @@ state.logout = function() {
       state.currentUser(null);
     }
   });
+  return false;
 }
 
 state.start = function() {
@@ -41,7 +42,7 @@ state.start = function() {
 
       // Ensure the protocol is not part of URL, meaning its relative.
       // Stop the event bubbling to ensure the link will not cause a page refresh.
-      if (href.slice(protocol.length) !== protocol) {
+      if (href.slice(protocol.length) !== protocol && href.indexOf('#') !== 0) {
         evt.preventDefault();
 
         // Note by using Backbone.history.navigate, router events will not be

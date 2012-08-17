@@ -27,6 +27,7 @@ define(function(require, module, exports) {
   dpd.users.me(function(user, err) {
     appState.currentUser(user);
     appState.start();
+    $('#app-container').show();
     ko.applyBindings(appState);
   });
 

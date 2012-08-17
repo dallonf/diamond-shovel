@@ -1,4 +1,8 @@
-<h2>Current Games</h2>
+<div class="clearfix">
+  <h2 class="pull-left">Upcoming Games</h2>
+  <a href="/create" class="btn btn-primary pull-right" data-bind="visible: $root.currentUser">Plan a Game</a>
+</div>
+
 <table class="table table-bordered table-striped">
   <thead>
     <tr>
@@ -13,25 +17,37 @@
       <td>Hunger Games</td>
       <td>5 / 24</td>
       <td>8:00 PM</td>
-      <td><a href="#" class="disabled">Log in to join</a></td>
+      <td>
+        <a href="#" class="disabled" data-bind="if: !$root.currentUser()">Log in to join</a>
+        <a href="#" data-bind="if: $root.currentUser">Sign up</a>
+      </td>
     </tr>
     <tr>
       <td>The Walls</td>
       <td>16 / 16</td>
       <td>8:30 PM</td>
-      <td><a href="#" class="disabled">Log in to join</a></td>
+      <td>
+        <a href="#" class="disabled" data-bind="if: !$root.currentUser()">Log in to join</a>
+        <a href="#" data-bind="if: $root.currentUser">Sign up</a>
+      </td>
     </tr>
     <tr>
       <td>Skyblock</td>
       <td>3 / 4</td>
       <td>9:00 PM</td>
-      <td><a href="#" class="disabled">Log in to join</a></td>
+      <td>
+        <a href="#" class="disabled" data-bind="if: !$root.currentUser()">Log in to join</a>
+        <a href="#" data-bind="if: $root.currentUser">Sign up</a>
+      </td>
     </tr>
     <tr>
       <td>The Walls</td>
       <td>2 / 4</td>
       <td>August 15 11:00 AM</td>
-      <td><a href="#" class="disabled">Log in to join</a></td>
+      <td>
+        <a href="#" class="disabled" data-bind="if: !$root.currentUser()">Log in to join</a>
+        <a href="#" data-bind="if: $root.currentUser">Sign up</a>
+      </td>
     </tr>
   </tbody>
 </table>
