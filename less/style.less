@@ -11,8 +11,13 @@ html {
 }
 
 body {
+  height: 100%;
+  min-width: 100%;
+  .display-box();
+  .box-pack(justify);
+  .box-orient(vertical);
   #gradient > .vertical(#8FA4FF, #B0C6FF);
-  padding-top: 60px;
+  background-color: #B0C6FF;
 }
 
 a.disabled {
@@ -23,13 +28,16 @@ h2 {
   margin-bottom: @spacing;
 }
 
-#app-container {
+#app-container .container {
+  margin-top: @spacing * 2;
   padding: @spacing * 2;
   background: @white;
   .box-shadow(0 0 40px rgba(255, 255, 255, 0.8));
 }
 
 #header-link {
+  position: relative;
+
   color: @textColor;
 
   &:before {
@@ -38,4 +46,39 @@ h2 {
     margin-right: @spacing / 2;
     display: inline-block;
   }
+}
+
+#footer-container {
+  margin-top: 100px;
+  .box-flex(1);
+  .display-box();
+  .box-orient(vertical);
+  .box-pack(end);
+  .box-align(center);
+  position: relative;
+  min-height: 100px;
+  overflow: hidden;
+  .perspective(400px);
+  .perspective-origin(50% 0%);
+  .transform-style(preserve-3d);
+  
+}
+
+#footer {
+  position: relative;
+  z-index: 10;
+  
+}
+
+#footer-background {
+  position: absolute;
+  background: url(img/grass.png);
+
+  bottom: 0;
+  left: -10000px;
+  right: -10000px;
+
+  height: 500px;
+
+  .transform(rotateX(70deg) translateZ( -200px ));
 }

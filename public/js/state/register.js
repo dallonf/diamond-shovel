@@ -11,6 +11,7 @@ function create(previousUrl) {
       username: ko.observable()
     , password: ko.observable()
     , confirmPassword: ko.observable()
+    , minecraftName: ko.observable()
     , email: ko.observable()
 
     , postbox: new ko.subscribable()
@@ -35,6 +36,7 @@ function create(previousUrl) {
     var user = {
         username: state.username()
       , password: state.password()
+      , minecraftName: state.minecraftName()
       , email: state.email()
     }
 
@@ -95,7 +97,20 @@ function create(previousUrl) {
         }
       });
     }
-  }, state).extend({throttle: 100});
+  }, state).extend({throttle: 500});
+
+  var minecraftNameTied = true;
+  state.username.subscribe(function(newValue) {
+    if (minecraftNameTied) {
+      state.minecraftName(newValue);
+    }
+  });
+
+  state.minecraftName.subscribe(function(newValue) {
+    if (newValue !== state.username()) {
+      minecraftNameTied = false;  
+    }
+  });
 
   return state;
 }

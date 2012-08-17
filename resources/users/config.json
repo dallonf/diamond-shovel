@@ -8,6 +8,14 @@
 			"required": false,
 			"id": "email",
 			"order": 0
+		},
+		"minecraftName": {
+			"name": "minecraftName",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "minecraftName",
+			"order": 1
 		}
 	}
 }

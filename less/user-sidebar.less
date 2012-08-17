@@ -21,11 +21,17 @@
     .games-list > li {
       border-bottom: @tableBorder 1px solid;
       padding: @spacing;
+      width: 100%;
+      .box-sizing(border-box);
       .display-box();
       .box-pack(justify);
 
       &:last-child {
         border-bottom: none;
+      }
+
+      .spacer {
+        .box-flex(1);
       }
 
       .time {
