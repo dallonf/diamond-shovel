@@ -8,35 +8,34 @@
     <div class="control-group">
       <label class="control-label">Game Type</label>
       <div class="controls">
-        <input type="text" class="input-xlarge" />
+        <input type="text" class="input-xlarge" data-bind="value: type" />
         <span class="help-inline"></span>
       </div>
     </div>
     <div class="control-group">
       <label class="control-label">Players</label>
       <div class="controls">
-        <input type="text" class="input-xlarge" />
+        <input type="number" class="input-xlarge" data-bind="integerValue: maxPlayers" />
         <span class="help-inline"></span>
       </div>
     </div>
     <div class="control-group">
       <div class="controls">
         <label class="checkbox">
-          <input type="checkbox" class="input-xlarge" />
+          <input type="checkbox" class="input-xlarge" data-bind="checked: isPublic" />
           Public Game
         </label>
       </div>
     </div>
     <fieldset>
       <legend>Time</legend>
+      <div data-bind="text: fullDate"></div>
       <div class="control-group">
         <label class="control-label">Date</label>
         <div class="controls">
-          <select class="input-large">
-            <option>August</option>
-          </select>
-          <input type="text" class="input-mini"></input>
-          <span class="help-inline">(tomorrow)</span>
+          <select class="input-large" data-bind="options: months, value: month"></select>
+          <input type="number" class="input-mini" data-bind="integerValue: date, valueUpdate: 'afterinput'"></input>
+          <span class="help-inline" data-bind="text: dateHelpText"></span>
         </div>
       </div>
       <div class="control-group">
