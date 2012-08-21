@@ -1,6 +1,7 @@
 define(function(require, exports, module) {
 
 var ko = require('knockout')
+  , app = require('app')
   , months = require('util/months')
   , timeUnits = require('util/time-units')
   , daysOfWeek = require('util/days-of-week');
@@ -103,12 +104,51 @@ function create() {
   });
 
   state.submit = function() {
-    state.errors([
-        "You must construct additional pylons"
-      , "You need to download more RAM" 
-      ]);
+    var game = {
+        type: state.type()
+      , maxPlayers: state.maxPlayers()
+      , date: state.dateTime().toString()
+      , isPublic: state.isPublic()
+      , serverIp: state.serverIp()
+      , usingHamachi: state.usingHamachi()
+      , description: state.description()
+    }
 
-    state.postbox.notifySubscribers(null, 'scrollToError');
+    if (game.usingHamachi) {
+      game.hamachiNetwork = state.hamachiNetwork;
+      game.hamachiPassword = state.hamachiPassword;
+    }
+
+    state.errors(null);
+    dpd.games.post(game, function(res, err) {
+      if (err) {
+        var errors = [];
+
+        if (err.message) {
+          errors.push(err.message);
+        }
+
+        if (err.errors) {
+          Object.keys(err.errors).forEach(function(k) {
+            errors.push(err.errors[k]);
+          });
+        }
+
+        
+        state.errors(errors);
+        state.postbox.notifySubscribers(null, 'scrollToError');
+        return;
+      }
+
+      app.navigate('', true);
+    });
+
+    // state.errors([
+    //     "You must construct additional pylons"
+    //   , "You need to download more RAM" 
+    //   ]);
+
+    // state.postbox.notifySubscribers(null, 'scrollToError');
   };
 
   var setDateFromDateTime = function(value) {

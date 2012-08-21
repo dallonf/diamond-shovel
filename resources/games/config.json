@@ -25,12 +25,12 @@
 			"id": "date",
 			"order": 2
 		},
-		"serverTime": {
-			"name": "serverTime",
+		"timeMillis": {
+			"name": "timeMillis",
 			"type": "number",
 			"typeLabel": "number",
 			"required": false,
-			"id": "serverTime",
+			"id": "timeMillis",
 			"order": 3
 		},
 		"isPublic": {
