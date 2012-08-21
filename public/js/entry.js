@@ -5,6 +5,7 @@ require.config({
     , "knockout-mapping": "lib/knockout.mapping-latest"
     , "underscore": "lib/underscore-min"
     , "backbone": "lib/backbone-min"
+    , "jquery-ui": "lib/jquery-ui-1.8.23.custom.min"
   },
   shim: {
     "underscore": {
@@ -28,9 +29,8 @@ define(function(require, module, exports) {
     appState.currentUser(user);
     appState.start();
     $('#app-container').show();
+    $('body').removeClass('loading');
     ko.applyBindings(appState);
   });
-
-  
 
 });

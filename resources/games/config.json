@@ -1,0 +1,85 @@
+{
+	"type": "Collection",
+	"properties": {
+		"type": {
+			"name": "type",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "type",
+			"order": 0
+		},
+		"maxPlayers": {
+			"name": "maxPlayers",
+			"type": "number",
+			"typeLabel": "number",
+			"required": false,
+			"id": "maxPlayers",
+			"order": 1
+		},
+		"date": {
+			"name": "date",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "date",
+			"order": 2
+		},
+		"serverTime": {
+			"name": "serverTime",
+			"type": "number",
+			"typeLabel": "number",
+			"required": false,
+			"id": "serverTime",
+			"order": 3
+		},
+		"isPublic": {
+			"name": "isPublic",
+			"type": "boolean",
+			"typeLabel": "boolean",
+			"required": false,
+			"id": "isPublic",
+			"order": 4
+		},
+		"serverIp": {
+			"name": "serverIp",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "serverIp",
+			"order": 5
+		},
+		"usingHamachi": {
+			"name": "usingHamachi",
+			"type": "boolean",
+			"typeLabel": "boolean",
+			"required": false,
+			"id": "usingHamachi",
+			"order": 6
+		},
+		"hamachiNetwork": {
+			"name": "hamachiNetwork",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "hamachiNetwork",
+			"order": 7
+		},
+		"hamachiPassword": {
+			"name": "hamachiPassword",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "hamachiPassword",
+			"order": 8
+		},
+		"description": {
+			"name": "description",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "description",
+			"order": 9
+		}
+	}
+}

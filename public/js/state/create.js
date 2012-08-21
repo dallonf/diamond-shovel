@@ -2,40 +2,52 @@ define(function(require, exports, module) {
 
 var ko = require('knockout')
   , months = require('util/months')
-  , timeUnits = require('util/time-units');
+  , timeUnits = require('util/time-units')
+  , daysOfWeek = require('util/days-of-week');
 
 require('bindings/integer-value');
+require('bindings/datepicker');
+require('bindings/scroll-to');
 
 function create() {
   var state = {
       type: ko.observable()
     , maxPlayers: ko.observable(16)
     , isPublic: ko.observable(true)
+    , serverIp: ko.observable()
+    , usingHamachi: ko.observable(false)
+    , hamachiNetwork: ko.observable()
+    , hamachiPassword: ko.observable() 
+    , description: ko.observable()
 
-    , month: ko.observable()
-    , date: ko.observable()
+    , date: ko.observable(isolateDate(new Date()))
+    , time: ko.observable()
+
+    , errors: ko.observable()
 
     , months: months
+
+    , postbox: new ko.subscribable()
   };
 
   var now = new Date()
     , tomorrow = new Date(now.getTime() + timeUnits.DAY);
 
-  state.fullDate = ko.computed({
+  state.dateTime = ko.computed({
       read: function() {
-        //TODO: should be last year if it would otherwise be in the past
-        var newDate = new Date(now.getFullYear(), months.indexOf(state.month()), state.date());
+        var date = state.date() || new Date();
+        var newDate = new Date(date.getFullYear(), date.getMonth(), date.getDate(), state.time(), state.time() % 1 * 60);
         return newDate;
       }
     , write: function(value) {
         if (!value instanceof Date) throw new TypeError("Must be a date")
-        setDateFromFullDate(value);
+        setDateFromDateTime(value);
       }
     , owner: state
   });
 
   state.dateHelpText = ko.computed(function() {
-    var difference = state.fullDate().getTime() - new Date().getTime();
+    var difference = state.date().getTime() - isolateDate(new Date()).getTime();
 
     if (difference < 0) {
       return "(in the past)";
@@ -43,44 +55,99 @@ function create() {
       return "(today)";
     } else if (difference < timeUnits.DAY*2) {
       return "(tomorrow)";
-    } else if (difference < timeUnits.WEEK) {
-      return "(in " + (difference / timeUnits.DAY).toFixed(0) + " days)";
     } else if (difference < timeUnits.WEEK * 2) {
-      return "(in a week)";
+      return "(in " + (difference / timeUnits.DAY).toFixed(0) + " days)";
     } else if (difference < timeUnits.MONTH) {
       return "(in " + (difference / timeUnits.WEEK).toFixed(0) + " weeks)";
+    } else {
+      return "(in " + (difference / timeUnits.MONTH).toFixed(0) +  " months)";
     }
   }, state);
 
-  var setDateFromFullDate = function(value) {
-    value = value || state.fullDate();
-    state.date(value.getDate());
-    state.month(months[value.getMonth()]);
+  state.timeHelpText = ko.computed(function() {
+    var difference = state.dateTime().getTime() - new Date().getTime()
+      , hours = difference / timeUnits.HOUR;
+
+    if (hours < 0) {
+      return "(in the past)";
+    } else if (hours < 0.75) {
+      return "(very soon)";
+    } else if (hours < 1.75) {
+      return "(in an hour)";
+    } else if (hours <= 24.5) {
+      return "(in " + hours.toFixed(0) + " hours)";
+    }
+  });
+
+  state.dayOfWeek = ko.computed(function() {
+    return "(" + daysOfWeek[state.dateTime().getDay()] + ")";
+  });
+
+  state.times = ko.computed(function() {
+    var times = []
+      , i
+      , hour
+      , ampm;
+
+    for (i = 0; i < 24; i++) {
+      hour = (i % 12);
+      ampm = i >= 12 ? "pm" : "am";
+
+      if (hour === 0) hour = 12;
+      hour = hour.toString();
+
+      times.push({text: hour + ":00 " + ampm, value: i});
+      times.push({text: hour + ":30 " + ampm, value: i + 0.5});
+    }
+    return times;
+  });
+
+  state.submit = function() {
+    state.errors([
+        "You must construct additional pylons"
+      , "You need to download more RAM" 
+      ]);
+
+    state.postbox.notifySubscribers(null, 'scrollToError');
   };
 
-  state.date.subscribe(function(newValue) {
-    //Changing the date should recalcuate everything
-    setTimeout(function() {
-      setDateFromFullDate();
-    }, 1);
-  });
+  var setDateFromDateTime = function(value) {
+    value = value || state.dateTime();
+    state.date(isolateDate(value));
 
-  state.month.subscribe(function(newValue) {
-    var targetMonth = months.indexOf(newValue);
-    setTimeout(function() {
-      var iterations = 4;
-      while(state.fullDate().getMonth() !== targetMonth) {
-        state.date(state.date() - 1);
-        iterations--;
-        if (iterations <= 0) break;
-      }
-    }, 1);
-  });
+    var time = value.getHours() + value.getMinutes()/60.0;
+    time = Math.round(time * 2) / 2; //Round to the half-hour
+    state.time(time);
+  };
+
+  // state.date.subscribe(function(newValue) {
+  //   //Changing the date should recalcuate everything
+  //   setTimeout(function() {
+  //     setDateFromDateTime();
+  //   }, 1);
+  // });
+
+  // state.month.subscribe(function(newValue) {
+  //   var targetMonth = months.indexOf(newValue);
+  //   setTimeout(function() {
+  //     var iterations = 4;
+  //     while(state.dateTime().getMonth() !== targetMonth) {
+  //       state.date(state.date() - 1);
+  //       iterations--;
+  //       if (iterations <= 0) break;
+  //     }
+  //   }, 1);
+  // });
 
 
-  state.fullDate(tomorrow);
+  state.dateTime(tomorrow);
+
 
   return state;
+}
+
+function isolateDate(value) {
+  return new Date(value.getFullYear(), value.getMonth(), value.getDate())
 }
 
 module.exports = create;

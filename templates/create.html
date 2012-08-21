@@ -4,11 +4,17 @@
   <a href="/">Back</a>
 </div>
 <div data-bind="if: $root.currentUser()">
-  <form class="form-horizontal">
+  <div class="alert alert-error" data-bind="visible: errors, scrollTo: 'scrollToError'">
+    There were errors when saving.
+    <ul data-bind="foreach: errors">
+      <li data-bind="text: $data"></li>
+    </ul>
+  </div>
+  <form class="form-horizontal" data-bind="submit: submit">
     <div class="control-group">
       <label class="control-label">Game Type</label>
       <div class="controls">
-        <input type="text" class="input-xlarge" data-bind="value: type" />
+        <input type="text" class="input-xlarge" data-bind="value: type, hasfocus: true" />
         <span class="help-inline"></span>
       </div>
     </div>
@@ -29,22 +35,18 @@
     </div>
     <fieldset>
       <legend>Time</legend>
-      <div data-bind="text: fullDate"></div>
       <div class="control-group">
         <label class="control-label">Date</label>
         <div class="controls">
-          <select class="input-large" data-bind="options: months, value: month"></select>
-          <input type="number" class="input-mini" data-bind="integerValue: date, valueUpdate: 'afterinput'"></input>
+          <input type="text" data-bind="datepicker: date, datepickerOptions: {dateFormat: 'DD, MM d, yy', minDate: 0, maxDate: 360, showOtherMonths: true}" />
           <span class="help-inline" data-bind="text: dateHelpText"></span>
         </div>
       </div>
       <div class="control-group">
         <label class="control-label">Time</label>
         <div class="controls">
-          <select class="input-large">
-            <option>8:00 PM</option>
-          </select>
-          <span class="help-inline">(in 2 hours)</span>
+          <select class="input-large" data-bind="options: times, optionsText: 'text', optionsValue: 'value', value: time"></select>
+          <span class="help-inline" data-bind="text: timeHelpText"></span>
         </div>
       </div>
     </fieldset>
@@ -53,29 +55,29 @@
       <div class="control-group">
         <label class="control-label">Server IP</label>
         <div class="controls">
-          <input type="text" class="input-xlarge" placeholder="xxx.xxx.xxx.xxx" />
+          <input type="text" class="input-xlarge" placeholder="xxx.xxx.xxx.xxx" data-bind="value: serverIp" />
         </div>
       </div>
       <div class="control-group">
         <div class="controls">
           <label class="checkbox">
-            <input type="checkbox" class="input-xlarge" />
+            <input type="checkbox" class="input-xlarge" data-bind="checked: usingHamachi" />
             Using Hamachi
-            <a href="#" title="What is Hamachi?"><i class="icon-question-sign"></i></a>
+            <!-- <a href="#" title="What is Hamachi?"><i class="icon-question-sign"></i></a> -->
           </label>
         </div>
       </div>
-      <div>
+      <div data-bind="visible: usingHamachi">
         <div class="control-group">
           <label class="control-label">Hamachi Network ID</label>
           <div class="controls">
-            <input type="text" class="input-xlarge"/>
+            <input type="text" class="input-xlarge" data-bind="value: hamachiNetwork"/>
           </div>
         </div>
         <div class="control-group">
           <label class="control-label">Network Password</label>
           <div class="controls">
-            <input type="text" class="input-xlarge"/>
+            <input type="text" class="input-xlarge" data-bind="value: hamachiPassword"/>
           </div>
         </div>
       </div>
@@ -84,7 +86,7 @@
       <legend>Description <em>(optional)</em></legend>
       <div class="control-group">
         <div class="controls">
-          <textarea class="input-xxlarge" rows="5"></textarea>
+          <textarea class="input-xxlarge" rows="5" data-bind="value: description"></textarea>
         </div>
       </div>
       

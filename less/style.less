@@ -6,6 +6,8 @@
 @import "user-sidebar.less";
 @import "register.less";
 
+
+
 html {
   height: 100%;
 }
@@ -64,11 +66,13 @@ h2 {
   .box-pack(end);
   .box-align(center);
   position: relative;
-  min-height: 100px;
+  min-height: 175px;
+  min-width: 100%;
   overflow: hidden;
   .perspective(400px);
   .perspective-origin(50% 0%);
   .transform-style(preserve-3d);
+
   
 }
 
@@ -78,9 +82,12 @@ h2 {
   color: @white;
   padding: @spacing;
   text-align: center;
+
 }
 
+
 #footer-background {
+
   position: absolute;
   background: url(img/grass.png);
 
@@ -91,4 +98,23 @@ h2 {
   height: 500px;
 
   .transform(rotateX(70deg) translateZ( -200px ));
+
+  .box-shadow(inset 0px 120px 100px -100px #B0C6FF);
 }
+
+/*.loading #footer-background {
+  -webkit-animation-duration: 500ms;
+  -webkit-animation-iteration-count: infinite;
+  -webkit-animation-name: scrollfooter;
+  -webkit-animation-timing-function: linear;
+}
+
+@-webkit-keyframes scrollfooter {
+  from {
+    background-position: 0 0;
+  }
+
+  to {
+    background-position: 0 32px;
+  }
+}*/
