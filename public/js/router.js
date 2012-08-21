@@ -2,6 +2,7 @@ define(function(require, exports, module) {
 
 var Backbone = require('backbone')
   , appState = require('app')
+  , indexState = require('state/index')
   , registerState = require('state/register')
   , createState = require('state/create');
 
@@ -14,7 +15,7 @@ var CustomRouter = Backbone.Router.extend({
   },
 
   index: function() {
-    appState.setPage('index');
+    appState.setPage('index', indexState());
   },
 
   register: function() {
