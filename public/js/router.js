@@ -11,6 +11,7 @@ var CustomRouter = Backbone.Router.extend({
       "": "index"
     , "register": "register"
     , "create": "create"
+    , "lobby/:id": "lobby"
     , "*fallback": "fallback"
   },
 
@@ -24,6 +25,10 @@ var CustomRouter = Backbone.Router.extend({
 
   create: function() {
     appState.setPage('create', createState());
+  },
+
+  lobby: function(id) {
+    appState.setPage('lobby', {id: id});
   },
 
   fallback: function() {

@@ -2,6 +2,7 @@ define(function(require, exports, module) {
 
 var ko = require('knockout')
   , koMapping = require('knockout-mapping')
+  , app = require('app')
   , months = require('util/months')
   , timeUnits = require('util/time-units')
   , PAGE_SIZE = 5;
@@ -46,7 +47,7 @@ function createGame(data, state) {
 
 
   data.navigate = function() {
-
+    app.navigate('lobby/' + data.id, true);
   };
 
   return data;
