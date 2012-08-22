@@ -25,6 +25,7 @@ function create() {
     , time: ko.observable()
 
     , errors: ko.observable()
+    , saving: ko.observable(false)
 
     , months: months
 
@@ -119,8 +120,10 @@ function create() {
       game.hamachiPassword = state.hamachiPassword;
     }
 
+    state.saving(true);
     state.errors(null);
     dpd.games.post(game, function(res, err) {
+      state.saving(false);
       if (err) {
         var errors = [];
 

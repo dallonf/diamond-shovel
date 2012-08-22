@@ -1,0 +1,1 @@
+emit('games:remove', this);

@@ -17,6 +17,7 @@ function create(previousUrl) {
     , postbox: new ko.subscribable()
 
     , errors: ko.observable({})
+    , saving: ko.observable(false)
 
     , usernameAvailable: ko.observable()
     , confirmPasswordBlurred: ko.observable(false)
@@ -42,8 +43,11 @@ function create(previousUrl) {
 
     state.errors({});
 
+    state.saving(true);
+
     dpd.users.post(user, function(res, err) {
       if (err) {
+        state.saving(false);
         state.postbox.notifySubscribers(true, 'blink');
         state.errors(err.errors || {});
         if (err.message) alert(err.message);
@@ -54,6 +58,7 @@ function create(previousUrl) {
           username: res.username
         , password: state.password()
       }, function() {
+        state.saving(false);
         dpd.users.me(function(user, err) {
           app.currentUser(user);
           state.goBack();

@@ -13,7 +13,12 @@ state.currentUser = ko.observable();
 state.loginState = loginState;
 
 state.setPage = function(page, pageState) {
+  var oldState = state.pageState();
   pageState = pageState || {};
+
+  if (oldState && typeof oldState._close === 'function') {
+    oldState._close();
+  }
 
   state.pageState(null); // Null out the page state so it doesn't try to render when we change pages
   state.currentPage(page);

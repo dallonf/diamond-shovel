@@ -80,6 +80,30 @@
 			"required": false,
 			"id": "description",
 			"order": 9
+		},
+		"hostId": {
+			"name": "hostId",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "hostId",
+			"order": 10
+		},
+		"hostName": {
+			"name": "hostName",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "hostName",
+			"order": 11
+		},
+		"players": {
+			"name": "players",
+			"type": "array",
+			"typeLabel": "array",
+			"required": false,
+			"id": "players",
+			"order": 12
 		}
 	}
 }

@@ -1,31 +1,24 @@
-<div class="clearfix">
-  <h2 class="pull-left">Upcoming Games</h2>
-  <a href="/create" class="btn btn-primary pull-right" data-bind="visible: $root.currentUser">Plan a Game</a>
-</div>
-
-<div class="games-empty" data-bind="visible: !games().length">
-  <div class="alert alert-info">
-    No games found
+<div id="index">
+  <div class="clearfix">
+    <h2 class="pull-left">Upcoming Games <i class="loader" data-bind="visible: !loaded()"></i></h2>
+    <a href="/create" class="btn btn-primary pull-right" data-bind="visible: $root.currentUser">Plan a Game</a>
   </div>
+
+  <div class="games-empty" data-bind="visible: !orderedGames().length && loaded()">
+    <div class="alert alert-info">
+      There are no upcoming games. <a href="/create" data-bind="visible: $root.currentUser">Create one now!</a>
+    </div>
+  </div>
+  <div class="games-list" data-bind="foreach: orderedGames">
+    <div class="game-listing" data-bind="click: navigate">
+      <h3 data-bind="text: type"></h3>
+      <div class="host">hosted by <span data-bind="text: hostName"></span></div>
+      <div class="countdown" data-bind="text: countdown"></div>    
+      <div class="stats">
+        <div class="players"><span data-bind="text: $data.players ? players().length : 0"></span> / <span data-bind="text: maxPlayers"></span> players</div>
+        <span data-bind="text: formattedTime"></span><br />
+      </div>
+    </div>
+  </div>
+  <a href="#" class="load-more-btn" data-bind="click: loadMore, visible: moreAvailable">Show more... <i class="loader-small" data-bind="visible: loadingMore"></i></a>
 </div>
-<table class="table table-bordered table-striped" data-bind="visible: games().length">
-  <thead>
-    <tr>
-      <th>Game Type</th>
-      <th>Players</th>
-      <th>Time</th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody data-bind="foreach: games">
-    <tr>
-      <td data-bind="text: type"></td>
-      <td>0 / <span data-bind="text: maxPlayers"></span></td>
-      <td data-bind="text: formattedTime"></td>
-       <td>
-        <a href="#" class="disabled" data-bind="if: !$root.currentUser()">Log in to join</a>
-        <a href="#" data-bind="if: $root.currentUser">Sign up</a>
-      </td>
-    </tr>
-  </tbody>
-</table>

@@ -3,9 +3,9 @@
 
 @spacing: 10px;
 
+@import "index.less";
 @import "user-sidebar.less";
 @import "register.less";
-
 
 
 html {
@@ -18,7 +18,7 @@ body {
   .display-box();
   .box-pack(justify);
   .box-orient(vertical);
-  #gradient > .vertical(#8FA4FF, #B0C6FF);
+  #gradient > .vertical(@mcSky, @mcSkyLight);
   background-color: #B0C6FF;
 }
 
@@ -28,6 +28,22 @@ a.disabled {
 
 h2 {
   margin-bottom: @spacing;
+}
+
+i.loader {
+  background: url(img/minecraftloadinganim.gif);
+  display: inline-block;
+  width: 32px;
+  height: 32px;
+  vertical-align: middle;
+}
+
+i.loader-small {
+  background: url(img/minecraftloadinganim-small.gif);
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  vertical-align: middle;
 }
 
 .clearfix h2 + .btn {

@@ -1,0 +1,32 @@
+#index {
+
+  .games-list {
+    .game-listing {
+      margin-bottom: @spacing;
+      position: relative;
+      padding: @spacing;
+      border: @tableBorder 1px solid;
+
+      &:hover {
+        cursor: pointer;
+        background: lighten(@blue, 10%);
+        border-color: @blue;
+        // color: @white;
+      }
+
+      .stats {
+        position: absolute;
+        bottom: @spacing;
+        right: @spacing;
+        text-align: right;
+        
+      }
+
+      .countdown {
+        margin-top: 1em;
+      }
+    }
+  }
+
+}
+

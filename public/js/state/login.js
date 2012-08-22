@@ -7,6 +7,7 @@ var ko = require('knockout')
 
 state.username = ko.observable();
 state.password = ko.observable();
+state.loading = ko.observable(false);
 
 state.error = ko.observable();
 
@@ -18,11 +19,10 @@ state.login = function() {
 
   state.error(null);
 
-  loading.add();
-
+  state.loading(true);
   dpd.users.login(credentials, function(res, err) {
     if (err) {
-      loading.remove();
+      state.loading(false);
       state.error(err.message);
       return;
     }
@@ -30,7 +30,7 @@ state.login = function() {
     state.username(null);
     state.password(null);
     dpd.users.me(function(user) {
-      loading.remove();
+      state.loading(false);
       app.currentUser(user);
     });
   });

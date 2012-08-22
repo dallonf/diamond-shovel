@@ -16,10 +16,11 @@
         <input type="text" class="input-xlarge" data-bind="value: minecraftName" />
       </div>
     </div>
-    <div class="control-group" data-bind="css: {error: confirmPasswordError}">
+    <div class="control-group" data-bind="css: {error: confirmPasswordError() || passwordError()}">
       <label class="control-label">Password</label>
       <div class="controls">
         <input type="password" class="input-xlarge" data-bind="value: password" />
+        <span class="help-inline" data-bind="text: passwordError"></span>
         <p class="help-text">This should <em>not</em> be the same as your Minecraft password!</p>
       </div>
     </div>
@@ -43,6 +44,7 @@
     <div class="form-actions">
       <button type="submit" class="btn btn-primary">Register</button>
       <button type="button" class="btn" data-bind="click: goBack">Back</button>
+      <i class="loader-small" data-bind="visible: saving"></i>
     </div>
   </form>
 </div>
