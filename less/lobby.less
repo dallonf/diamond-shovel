@@ -1,0 +1,67 @@
+#lobby {
+  .lobby-info {
+    margin-left: 0;
+
+    li {
+      display: inline-block;
+      margin-right: @spacing;
+    }
+  }
+
+  .description {
+    margin-top: @spacing * 2;
+    border-left: @tableBorder 1px solid;
+    padding-left: @spacing;
+  }
+
+  .lobby-chat {
+    margin-top: @spacing * 2;
+    .display-box();
+    border: @tableBorder 1px solid;
+    height: 300px;
+
+    .messages {
+      .box-flex(1);
+      .display-box();
+      .box-orient(vertical);
+      .box-pack(end);
+      margin: 0;
+      padding: @spacing;
+
+      list-style: none;
+
+      .subtle {
+        color: @grayLight;
+      }
+    }
+
+    .players-container {
+      .display-box();
+      .box-orient(vertical);
+
+      .players-stats {
+        text-align: center;
+        padding: @spacing;
+        border-left: @tableBorder 1px solid;
+        border-bottom: @tableBorder 1px solid;
+
+      }
+
+      .players {
+        .box-flex(1);
+        margin: 0;
+        padding: @spacing;
+        min-width: 150px;
+        border-left: @tableBorder 1px solid;
+        list-style: none;
+        overflow-y: scroll;
+
+        li {
+          padding: @spacing / 2;
+        }
+      }
+    }
+  }
+
+
+}

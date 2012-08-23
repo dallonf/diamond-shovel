@@ -1,6 +1,6 @@
 <div id="index">
   <div class="clearfix">
-    <h2 class="pull-left">Upcoming Games <i class="loader" data-bind="visible: !loaded()"></i></h2>
+    <h2 class="pull-left">Upcoming Games</h2>
     <a href="/create" class="btn btn-primary pull-right" data-bind="visible: $root.currentUser">Plan a Game</a>
   </div>
 
@@ -15,7 +15,7 @@
       <div class="host">hosted by <span data-bind="text: hostName"></span></div>
       <div class="countdown" data-bind="text: countdown"></div>    
       <div class="stats">
-        <div class="players"><span data-bind="text: $data.players ? players().length : 0"></span> / <span data-bind="text: maxPlayers"></span> players</div>
+        <div class="players"><span data-bind="text: $data.players ? players().length + 1 : 1"></span> / <span data-bind="text: maxPlayers"></span> players</div>
         <span data-bind="text: formattedTime"></span><br />
       </div>
     </div>

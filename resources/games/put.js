@@ -1,5 +1,14 @@
 if (!me || me.id !== this.hostId) {
-    error("You are not the host of this game", 401);
+    protect('type');
+    protect('maxPlayers');
+    protect('date');
+    protect('timeMillis');
+    protect('serverId');
+    protect('usingHamachi');
+    protect('hamachiPassword');
+    protect('description');
+    protect('hostId');
+    protect('hostName');
 }
 
 emit('games:update', this);

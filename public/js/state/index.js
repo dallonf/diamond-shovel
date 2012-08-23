@@ -5,6 +5,7 @@ var ko = require('knockout')
   , app = require('app')
   , months = require('util/months')
   , timeUnits = require('util/time-units')
+  , dateFormats = require('util/date-formats')
   , PAGE_SIZE = 5;
   
 
@@ -16,33 +17,11 @@ function createGame(data, state) {
   data = koMapping.fromJS(data, gameMapping);
 
   data.formattedTime = ko.computed(function() {
-    var date = new Date(data.date())
-      , month = months[date.getMonth()]
-      , ampm = date.getHours() >= 12 ? "pm" : "am"
-      , hour = date.getHours() % 12
-      , minutes = date.getMinutes().toString();
-
-    if (minutes.length < 2) minutes = "0" + minutes;
-
-    if (hour === 0) hour = 12;
-
-    return hour + ":" + minutes + " " + ampm + ", " + month + " " + date.getDate();
-
+    return dateFormats.full(new Date(data.date()));
   }, data);
 
   data.countdown = ko.computed(function() {
-    var date = new Date(data.date())
-      , difference = date.getTime() - state.now().getTime();
-
-    if (difference < timeUnits.MINUTE) {
-      return "Starting now!";
-    } else if (difference < timeUnits.HOUR * 1.5) {
-      return "Starts in " + (difference/timeUnits.MINUTE).toFixed(0) + " minutes";
-    } else if (difference < timeUnits.HOUR * 48) {
-      return "Starts in " + (difference/timeUnits.HOUR).toFixed(0) + " hours";
-    } else {
-      return "Starts in " + (difference/timeUnits.DAY).toFixed(0) + " days";
-    }
+    return dateFormats.countdown(new Date(data.date()), state.now());
   }, data);
 
 
@@ -186,6 +165,7 @@ function create() {
 
   state._close = function() {
     clearInterval(nowTimeout);
+    clearInterval(reloadTimeout);
   };
 
   return state;

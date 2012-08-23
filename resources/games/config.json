@@ -33,21 +33,13 @@
 			"id": "timeMillis",
 			"order": 3
 		},
-		"isPublic": {
-			"name": "isPublic",
-			"type": "boolean",
-			"typeLabel": "boolean",
-			"required": false,
-			"id": "isPublic",
-			"order": 4
-		},
 		"serverIp": {
 			"name": "serverIp",
 			"type": "string",
 			"typeLabel": "string",
 			"required": false,
 			"id": "serverIp",
-			"order": 5
+			"order": 4
 		},
 		"usingHamachi": {
 			"name": "usingHamachi",
@@ -55,7 +47,7 @@
 			"typeLabel": "boolean",
 			"required": false,
 			"id": "usingHamachi",
-			"order": 6
+			"order": 5
 		},
 		"hamachiNetwork": {
 			"name": "hamachiNetwork",
@@ -63,7 +55,7 @@
 			"typeLabel": "string",
 			"required": false,
 			"id": "hamachiNetwork",
-			"order": 7
+			"order": 6
 		},
 		"hamachiPassword": {
 			"name": "hamachiPassword",
@@ -71,7 +63,7 @@
 			"typeLabel": "string",
 			"required": false,
 			"id": "hamachiPassword",
-			"order": 8
+			"order": 7
 		},
 		"description": {
 			"name": "description",
@@ -79,7 +71,7 @@
 			"typeLabel": "string",
 			"required": false,
 			"id": "description",
-			"order": 9
+			"order": 8
 		},
 		"hostId": {
 			"name": "hostId",
@@ -87,7 +79,7 @@
 			"typeLabel": "string",
 			"required": false,
 			"id": "hostId",
-			"order": 10
+			"order": 9
 		},
 		"hostName": {
 			"name": "hostName",
@@ -95,7 +87,7 @@
 			"typeLabel": "string",
 			"required": false,
 			"id": "hostName",
-			"order": 11
+			"order": 10
 		},
 		"players": {
 			"name": "players",
@@ -103,7 +95,7 @@
 			"typeLabel": "array",
 			"required": false,
 			"id": "players",
-			"order": 12
+			"order": 11
 		}
 	}
 }

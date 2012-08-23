@@ -1,2 +1,35 @@
-<h2>Game Lobby - Spleef</h2>
-<div data-bind="text: id"></div>
+<div id="lobby" data-bind="if: loaded">
+  <div class="clearfix" >
+    <h2 class="pull-left">Game Lobby - <span data-bind="text: type"></span></h2>
+    <a href="/" class="btn pull-right">Back</a>
+    <button class="btn btn-primary pull-right" data-bind="visible: $root.currentUser">Join this game</button>
+  </div>
+  <ul class="lobby-info">
+    <li>
+      <i class="mcicon-clock"></i> <span data-bind="text: countdown"></span>
+    </li>
+    <li>
+      <i class="mcicon-sun"></i> <span data-bind="text: fullTime"></span>
+    </li>
+  </ul>
+  <div class="description" data-bind="text: description, visible: description">
+    Rules:<br />
+    No hacking<br />
+    No griefing<br />
+    No teamkilling<br />
+  </div>
+  <div class="lobby-chat">
+    <ul class="messages">
+      <li class="subtle">Join this game to see chat</li>
+    </ul>
+    <div class="players-container">
+      <div class="players-stats"><span data-bind="text: playerCount"></span> / <span data-bind="text: maxPlayers"></span></div>
+      <ul class="players">
+        <li class="host"><span data-bind="text: hostName"></span> (host)</li>
+        <!-- ko foreach: players -->
+          <li data-bind="text: $data.minecraftName"></li>
+        <!-- /ko -->
+     </ul>
+    </div>
+  </div>
+</div>

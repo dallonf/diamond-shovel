@@ -14,7 +14,6 @@ function create() {
   var state = {
       type: ko.observable()
     , maxPlayers: ko.observable(16)
-    , isPublic: ko.observable(true)
     , serverIp: ko.observable()
     , usingHamachi: ko.observable(false)
     , hamachiNetwork: ko.observable()
@@ -109,7 +108,6 @@ function create() {
         type: state.type()
       , maxPlayers: state.maxPlayers()
       , date: state.dateTime().toString()
-      , isPublic: state.isPublic()
       , serverIp: state.serverIp()
       , usingHamachi: state.usingHamachi()
       , description: state.description()

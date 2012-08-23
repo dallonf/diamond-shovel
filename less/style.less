@@ -3,6 +3,9 @@
 
 @spacing: 10px;
 
+@import "icons.less";
+
+@import "lobby.less";
 @import "index.less";
 @import "user-sidebar.less";
 @import "register.less";
@@ -46,9 +49,12 @@ i.loader-small {
   vertical-align: middle;
 }
 
-.clearfix h2 + .btn {
+.clearfix h2 ~ .btn {
   margin-top: 2px;
+  margin-right: 4px;
 }
+
+
 
 .input-xxlarge {
   width: 430px;
@@ -67,10 +73,10 @@ i.loader-small {
   color: @textColor;
 
   &:before {
-    vertical-align: middle;
-    content: url(img/diamond-shovel.png);
+    .mcicon;
+    .mcicon-diamond-shovel;
+    content: ' ';
     margin-right: @spacing / 2;
-    display: inline-block;
   }
 }
 
