@@ -8,6 +8,8 @@ var ko = require('knockout')
 
 function create(id) {
 
+  var isActive = true;
+
   var mapping = {
       copy: ['id']
     , 'players': {
@@ -29,6 +31,7 @@ function create(id) {
     , now: ko.observable(new Date())
     , loaded: ko.observable(false)
     , saveLoading: ko.observable(false)
+    , notFound: ko.observable(false)
   }
 
   state.playerCount = ko.computed(function() {
@@ -66,12 +69,23 @@ function create(id) {
       state.saveLoading(false);
     });
   };
+
+  state.deleteGame = function() {
+    if (confirm("Delete this game?")) {
+      dpd.games.del(id, function(res, err) {
+        if (!err) {
+          app.navigate("", true);
+        }
+      });
+    }
+  }
   
   loadGame();
 
   function loadGame() {
+    state.notFound(null);
     dpd.games.get(id, function(res, err) {
-      if (err) return;
+      if (err) return state.notFound(true);
       koMapping.fromJS(res, mapping, state);
       state.loaded(true);
     });
@@ -82,6 +96,14 @@ function create(id) {
       koMapping.fromJS(game, mapping, state);
     }
   });
+
+  dpd.games.on('remove', function(game) {
+    if (isActive && game.id === id) {
+      state.notFound(true);
+      state.loaded(false);
+      isActive = false;
+    }
+  });
   
   var nowTimeout = setInterval(function() {
     state.now(new Date());
@@ -89,6 +111,7 @@ function create(id) {
 
   state._close = function() {
     clearInterval(nowTimeout);
+    isActive = false;
   };
 
   return state;

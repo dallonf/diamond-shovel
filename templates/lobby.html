@@ -1,10 +1,14 @@
+<div class="alert alert-error" data-bind="visible: notFound">
+  <p>This game has been deleted by the host</p>
+  <a href="/">Back</a>
+</div>
 <div id="lobby" data-bind="if: loaded">
   <div class="clearfix" >
     <h2 class="pull-left">Game Lobby - <span data-bind="text: type"></span></h2>
     <a href="/" class="btn pull-right">Back</a>
     <button class="btn btn-primary pull-right" data-bind="visible: $root.currentUser() && !isPlaying(), click: join">Join this game</button>
     <button class="btn pull-right" data-bind="visible: isPlaying() && !isHost(), click: leave">Leave this game</button>
-    <button class="btn btn-danger pull-right" data-bind="visible: isHost">Delete this game</button>
+    <button class="btn btn-danger pull-right" data-bind="visible: isHost, click: deleteGame">Delete this game</button>
     <i class="loader-small pull-right" data-bind="visible: saveLoading"></i>
   </div>
   <ul class="lobby-info">
@@ -15,7 +19,7 @@
       <i class="mcicon-sun"></i> <span data-bind="text: fullTime"></span>
     </li>
     <li data-bind="visible: isPlaying">
-      <i class="mcicon-diamond"></i> You are playing</span>
+      <i class="mcicon-diamond"></i> You are <span data-bind="text: isHost() ? 'hosting' : 'playing'"></span>
     </li>
   </ul>
   <div class="description" data-bind="text: description, visible: description">

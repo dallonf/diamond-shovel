@@ -4,43 +4,20 @@
   <!-- <div data-bind="foreach: games"><span data-bind="text: type"></span></div> -->
   <div class="games">
     <h3 class="games-header">
-      Games <span class="badge badge-important">3</span>
+      Your Games <span class="badge badge-important" data-bind="visible: games().length, text: games().length"></span>
     </h3>
-    <ul class="games-list">
-      <li>
+    <div class="empty" data-bind="visible: !games().length">You haven't joined any games</div>
+    <ul class="games-list" data-bind="foreach: games">
+      <li data-bind="click: navigate">
         <div class="game-info">
-          <div class="game-name">The Walls</div>
-          <div class="host">ritchie is hosting</div>
-          <div class="players">6 / 10</div>
+          <div class="game-name" data-bind="text: type"></div>
+          <div class="host">hosted by <span data-bind="text: hostName"></span></div>
+          <div class="countdown" data-bind="text: countdown"></div>
         </div>
         <div class="spacer"></div>
         <div class="time">
-          August 15<br />
-          3:00 PM
-        </div>
-      </li>
-      <li>
-        <div class="game-info">
-          <div class="game-name">The Walls</div>
-          <div class="host">ritchie is hosting</div>
-          <div class="players">6 / 10</div>
-        </div>
-        <div class="spacer"></div>
-        <div class="time">
-          August 15<br />
-          3:00 PM
-        </div>
-      </li>
-      <li>
-        <div class="game-info">
-          <div class="game-name">The Walls</div>
-          <div class="host">ritchie is hosting</div>
-          <div class="players">6 / 10</div>
-        </div>
-        <div class="spacer"></div>
-        <div class="time">
-          August 15<br />
-          3:00 PM
+          <span data-bind="text: players ? players().length + 1 : 1"></span> / <span data-bind="text: maxPlayers"></span><br />
+          <span data-bind="text: formattedTime"></span>
         </div>
       </li>
     </ul>

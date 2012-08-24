@@ -141,7 +141,7 @@ function create() {
         return;
       }
 
-      app.navigate('', true);
+      app.navigate('lobby/' + res.id, true);
     });
 
     // state.errors([

@@ -3,7 +3,6 @@
   .games {
     border: @tableBorder 1px solid;
     margin-top: @spacing;
-    
 
     h3 { 
       border-bottom: @tableBorder 1px solid;
@@ -16,6 +15,12 @@
       margin: 0;
     }
 
+    .empty {
+      padding: @spacing;
+      text-align: center;
+      font-style: italic;
+    }
+
 
     .games-list > li {
       border-bottom: @tableBorder 1px solid;
@@ -24,6 +29,11 @@
       .box-sizing(border-box);
       .display-box();
       .box-pack(justify);
+
+      &:hover {
+        cursor: pointer;
+        .box-shadow(inset 0 0 15px @tableBorder);
+      }
 
       &:last-child {
         border-bottom: none;

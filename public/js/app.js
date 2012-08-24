@@ -12,8 +12,6 @@ state.pageState = ko.observable();
 state.currentUser = ko.observable();
 
 state.loginState = loginState;
-state.userSidebarState = userSidebarState;
-userSidebarState.init();
 
 state.setPage = function(page, pageState) {
   var oldState = state.pageState();
@@ -30,6 +28,9 @@ state.setPage = function(page, pageState) {
 
 
 state.start = function() {
+  state.userSidebarState = userSidebarState;
+  userSidebarState.init();
+
   Backbone.history.start({pushState: true});
 
   if (Backbone.history && Backbone.history._hasPushState) {

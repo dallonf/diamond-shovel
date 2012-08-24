@@ -6,31 +6,8 @@ var ko = require('knockout')
   , months = require('util/months')
   , timeUnits = require('util/time-units')
   , dateFormats = require('util/date-formats')
+  , createGame = require('./game-listing')
   , PAGE_SIZE = 5;
-  
-
-var gameMapping = {
-  copy: ['id']
-};
-
-function createGame(data, state) {
-  data = koMapping.fromJS(data, gameMapping);
-
-  data.formattedTime = ko.computed(function() {
-    return dateFormats.full(new Date(data.date()));
-  }, data);
-
-  data.countdown = ko.computed(function() {
-    return dateFormats.countdown(new Date(data.date()), state.now());
-  }, data);
-
-
-  data.navigate = function() {
-    app.navigate('lobby/' + data.id, true);
-  };
-
-  return data;
-}
 
 function create() {
   var state = {
@@ -43,12 +20,13 @@ function create() {
 
   var mapping = {
     'games': {
+      copy: ['id'],
       key: function(data) {
         return ko.utils.unwrapObservable(data.id);
       },
       create: function(options) {
-        return createGame(options.data, state);
-      }
+        return createGame(options.data, state.now);
+      },
     }
   };
 
@@ -124,7 +102,7 @@ function create() {
       , lastGame = games[games.length - 1];
 
     if ((!state.moreAvailable() && state.orderedGames().length < PAGE_SIZE) || game.timeMillis < lastGame.timeMillis()) {
-      state.games.push(createGame(game, state));  
+      state.games.push(createGame(game, state.now));  
     } else {
       state.moreAvailable(true);
     }
