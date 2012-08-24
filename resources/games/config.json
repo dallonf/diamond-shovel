@@ -89,12 +89,12 @@
 			"id": "hostName",
 			"order": 10
 		},
-		"players": {
-			"name": "players",
+		"playerIds": {
+			"name": "playerIds",
 			"type": "array",
 			"typeLabel": "array",
 			"required": false,
-			"id": "players",
+			"id": "playerIds",
 			"order": 11
 		}
 	}

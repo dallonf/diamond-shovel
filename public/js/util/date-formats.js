@@ -21,7 +21,9 @@ exports.countdown = function(date, now) {
 
   var difference = date.getTime() - now.getTime();
 
-  if (difference < timeUnits.MINUTE) {
+  if (difference < -timeUnits.MINUTE*30) {
+    return "Already started";
+  } else if (difference < timeUnits.MINUTE) {
     return "Starting now!";
   } else if (difference < timeUnits.HOUR * 1.5) {
     return "Starts in " + (difference/timeUnits.MINUTE).toFixed(0) + " minutes";

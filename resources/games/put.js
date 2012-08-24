@@ -1,14 +1,14 @@
-if (!me || me.id !== this.hostId) {
-    protect('type');
-    protect('maxPlayers');
-    protect('date');
-    protect('timeMillis');
-    protect('serverId');
-    protect('usingHamachi');
-    protect('hamachiPassword');
-    protect('description');
-    protect('hostId');
-    protect('hostName');
+if (!internal && (!me || me.id !== this.hostId)) {
+    cancel("This is not your game", 401);
 }
 
-emit('games:update', this);
+dpd.users.get({id: {$in: this.playerIds || []}}, function(res, err) {
+  this.players = res.map(function(p) {
+    return {
+        id: p.id
+      , minecraftName: p.minecraftName
+    };
+  });
+
+  emit('games:update', this);
+});

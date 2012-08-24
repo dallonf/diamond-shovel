@@ -4,7 +4,7 @@
     <div class="control-group" data-bind="css: {error: usernameError, success: usernameAvailable() === true}">
       <label class="control-label">Username</label>
       <div class="controls">
-        <input type="text" class="input-xlarge" data-bind="value: username, valueUpdate: 'afterkeydown'" />
+        <input type="text" class="input-xlarge" data-bind="value: username, valueUpdate: 'afterkeydown', hasfocus: true" />
         <span class="help-inline" data-bind="text: usernameError"></span>
       </div>
     </div>

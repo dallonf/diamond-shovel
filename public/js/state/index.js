@@ -154,7 +154,7 @@ function create() {
   loadGames();
 
   var reloadTimeout = setInterval(function() {
-    if (orderedGames.length < PAGE_SIZE) {
+    if (state.orderedGames.length < PAGE_SIZE) {
       loadGames();
     }
   }, timeUnits.MINUTE);

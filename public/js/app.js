@@ -3,6 +3,7 @@ define(function(require, exports, module) {
 var ko = require('knockout')
   , Router = require('router')
   , loginState = require('state/login')
+  , userSidebarState = require('state/user-sidebar')
   , state = exports;
 
 state.currentPage = ko.observable("index");
@@ -11,6 +12,8 @@ state.pageState = ko.observable();
 state.currentUser = ko.observable();
 
 state.loginState = loginState;
+state.userSidebarState = userSidebarState;
+userSidebarState.init();
 
 state.setPage = function(page, pageState) {
   var oldState = state.pageState();
@@ -25,14 +28,6 @@ state.setPage = function(page, pageState) {
   state.pageState(pageState);
 };
 
-state.logout = function() {
-  dpd.users.logout(function(res, err) {
-    if (!err) {
-      state.currentUser(null);
-    }
-  });
-  return false;
-}
 
 state.start = function() {
   Backbone.history.start({pushState: true});
