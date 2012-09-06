@@ -1,7 +1,7 @@
 define(function(require, exports, module) {
 
 var months = require('./months')
-  , timeUnits = require('./time-units')
+  , timeUnits = require('./time-units');
 
 exports.full = function(date) {
   var month = months[date.getMonth()]

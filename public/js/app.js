@@ -54,7 +54,7 @@ state.start = function() {
     });
 
   }
-}
+};
 
 state.navigate = function() {
   state.router.navigate.apply(state.router, arguments);

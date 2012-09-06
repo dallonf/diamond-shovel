@@ -32,15 +32,15 @@ ko.bindingHandlers.integerValue = {
 
       $(element).blur(function() {
         setProp(element, prop);
-      })
+      });
     }
   }, update: function(element, valueAccessor) {
     $(element).val(ko.utils.unwrapObservable(valueAccessor()));
   }
-}
+};
 
 function setProp(element, prop) {
-  var num = parseInt($(element).val());
+  var num = parseInt($(element).val(), 10);
   prop(num);
 }
 

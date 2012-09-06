@@ -11,8 +11,8 @@ ko.bindingHandlers.blink = {
       $(element).hide();
       setTimeout(function() {
         $(element).show();
-      }, duration)
-    }, vm, 'blink')
+      }, duration);
+    }, vm, 'blink');
   }
 };
 

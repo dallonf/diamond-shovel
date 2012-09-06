@@ -32,7 +32,7 @@ function create(id) {
     , loaded: ko.observable(false)
     , saveLoading: ko.observable(false)
     , notFound: ko.observable(false)
-  }
+  };
 
   state.playerCount = ko.computed(function() {
     return state.players().length + 1; // Including host
@@ -78,7 +78,7 @@ function create(id) {
         }
       });
     }
-  }
+  };
   
   loadGame();
 

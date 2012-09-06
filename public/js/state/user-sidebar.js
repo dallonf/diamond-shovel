@@ -29,7 +29,7 @@ state.logout = function() {
     }
   });
   return false;
-}
+};
 
 function loadGames() {
   if (!app.currentUser()) return state.games([]);
@@ -73,9 +73,6 @@ state.init = function() {
     state.now = ko.observable(new Date());
   }, 1000);
 
-}
-
-
-
+};
 
 });

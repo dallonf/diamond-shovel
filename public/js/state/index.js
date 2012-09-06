@@ -26,7 +26,7 @@ function create() {
       },
       create: function(options) {
         return createGame(options.data, state.now);
-      },
+      }
     }
   };
 

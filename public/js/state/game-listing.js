@@ -1,7 +1,7 @@
 define(function(require, exports, module) {
 
 var gameMapping = {
-  copy: ['id'],
+  copy: ['id']
 };
 
 var ko = require('knockout')
@@ -28,6 +28,6 @@ function createGame(data, now) {
   return data;
 }
 
-module.exports = createGame
+module.exports = createGame;
 
 });

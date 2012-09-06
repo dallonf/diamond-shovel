@@ -39,7 +39,7 @@ function create(previousUrl) {
       , password: state.password()
       , minecraftName: state.minecraftName()
       , email: state.email()
-    }
+    };
 
     state.errors({});
 
@@ -65,7 +65,7 @@ function create(previousUrl) {
         });
       });
     });
-  }
+  };
 
   state.usernameError = ko.computed(function() {
     if (state.errors().username) return state.errors().username;

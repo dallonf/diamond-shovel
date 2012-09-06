@@ -41,7 +41,7 @@ function create() {
         return newDate;
       }
     , write: function(value) {
-        if (!value instanceof Date) throw new TypeError("Must be a date")
+        if (!value instanceof Date) throw new TypeError("Must be a date");
         setDateFromDateTime(value);
       }
     , owner: state
@@ -111,7 +111,7 @@ function create() {
       , serverIp: state.serverIp()
       , usingHamachi: state.usingHamachi()
       , description: state.description()
-    }
+    };
 
     if (game.usingHamachi) {
       game.hamachiNetwork = state.hamachiNetwork;
@@ -188,7 +188,7 @@ function create() {
 }
 
 function isolateDate(value) {
-  return new Date(value.getFullYear(), value.getMonth(), value.getDate())
+  return new Date(value.getFullYear(), value.getMonth(), value.getDate());
 }
 
 module.exports = create;
