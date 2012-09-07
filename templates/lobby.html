@@ -29,9 +29,16 @@
     No teamkilling<br />
   </div>
   <div class="lobby-chat">
-    <ul class="messages">
-      <li class="subtle" data-bind="visible: !isPlaying()">Join this game to see chat</li>
-    </ul>
+    <div class="messages-container">
+      <ul class="messages">
+        <li data-bind="visible: isPlaying"><strong>dallonf</strong> Hi everyone!</li>
+        <li class="subtle" data-bind="visible: !isPlaying()">Join this game to see chat</li>
+      </ul>
+      <form class="message-input" data-bind="visible: isPlaying">
+        <input type="text" data-bind="value: messageText" />
+        <button class="btn btn-primary">Send</button>
+      </form>
+    </div>
     <div class="players-container">
       <div class="players-stats"><span data-bind="text: playerCount"></span> / <span data-bind="text: maxPlayers"></span></div>
       <ul class="players">

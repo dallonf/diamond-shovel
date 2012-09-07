@@ -32,6 +32,8 @@ function create(id) {
     , loaded: ko.observable(false)
     , saveLoading: ko.observable(false)
     , notFound: ko.observable(false)
+
+    , messageText: ko.observable()
   };
 
   state.playerCount = ko.computed(function() {

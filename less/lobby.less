@@ -20,15 +20,34 @@
     border: @tableBorder 1px solid;
     height: 300px;
 
-    .messages {
+    .messages-container {
       .box-flex(1);
       .display-box();
       .box-orient(vertical);
-      .box-pack(end);
-      margin: 0;
-      padding: @spacing;
+    
+      .messages {
+        .box-flex(1);
+        .display-box();
+        .box-orient(vertical);
+        .box-pack(end);
+        margin: 0;
+        padding: @spacing;
+        list-style: none;
+        overflow-y: scroll;
+      }
 
-      list-style: none;
+      .message-input {
+        margin: 0;
+        padding: @spacing;
+        .display-box();
+
+        input {
+          display: block;
+          margin: 0;
+          margin-right: @spacing;
+          .box-flex(1);
+        }
+      }
 
       .subtle {
         color: @grayLight;

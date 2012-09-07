@@ -1,0 +1,29 @@
+{
+	"type": "Collection",
+	"properties": {
+		"username": {
+			"name": "username",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "username",
+			"order": 0
+		},
+		"message": {
+			"name": "message",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "message",
+			"order": 1
+		},
+		"gameId": {
+			"name": "gameId",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "gameId",
+			"order": 2
+		}
+	}
+}
