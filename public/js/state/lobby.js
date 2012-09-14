@@ -6,6 +6,8 @@ var ko = require('knockout')
   , timeUnits = require('util/time-units')
   , app = require('app');
 
+require('bindings/scroll-to-end');
+
 function create(id) {
 
   var isActive = true;
@@ -34,6 +36,10 @@ function create(id) {
     , notFound: ko.observable(false)
 
     , messageText: ko.observable()
+
+    , messages: ko.observableArray()
+
+    , postbox: new ko.subscribable()
   };
 
   state.playerCount = ko.computed(function() {
@@ -58,6 +64,31 @@ function create(id) {
     }));
   });
 
+  dpd.on('game:' + state.id + ':message', function(message) {
+    state.messages.push(message);
+    setTimeout(function() {
+      state.postbox.notifySubscribers(false, 'chatScroll');  
+    }, 1);
+    
+  });
+
+  function loadMessages() {
+    dpd.lobbymessages.get({gameId: state.id}, function(res, err) {
+      state.messages(res);
+      setTimeout(function() {
+        state.postbox.notifySubscribers(true, 'chatScroll');
+      }, 1);
+    });
+  }
+
+  ko.computed(function() {
+    if (state.isPlaying()) {
+      loadMessages();
+    } else {
+      state.messages([]);
+    }
+  }, state);
+
   state.join = function() {
     state.saveLoading(true);
     dpd.joingame.post(state.id, function() {
@@ -77,6 +108,19 @@ function create(id) {
       dpd.games.del(id, function(res, err) {
         if (!err) {
           app.navigate("", true);
+        }
+      });
+    }
+  };
+
+  state.submitMessage = function() {
+    if (state.isPlaying()) {
+      dpd.lobbymessages.post({
+          gameId: state.id
+        , message: state.messageText()
+      }, function(res, err) {
+        if (!err) {
+          state.messageText('');
         }
       });
     }

@@ -47,7 +47,6 @@ function create() {
   }, state);
 
   function loadGames() {
-    state.loaded(false);
     dpd.games.get({timeMillis: {$gt: state.timeCutoff()}, $limit: PAGE_SIZE + 1, $sort: {timeMillis: 1}}, function(res, err) {
       if (err) return;
       state.loaded(true);

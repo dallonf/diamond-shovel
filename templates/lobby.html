@@ -30,11 +30,13 @@
   </div>
   <div class="lobby-chat">
     <div class="messages-container">
-      <ul class="messages">
-        <li data-bind="visible: isPlaying"><strong>dallonf</strong> Hi everyone!</li>
+      <ul class="messages" data-bind="scrollToEnd: 'chatScroll'">
+        <!-- ko foreach: messages -->
+        <li><strong data-bind="text: username"></strong> <span data-bind="text: message"></span></li>
+        <!-- /ko -->
         <li class="subtle" data-bind="visible: !isPlaying()">Join this game to see chat</li>
       </ul>
-      <form class="message-input" data-bind="visible: isPlaying">
+      <form class="message-input" data-bind="visible: isPlaying, submit: submitMessage">
         <input type="text" data-bind="value: messageText" />
         <button class="btn btn-primary">Send</button>
       </form>

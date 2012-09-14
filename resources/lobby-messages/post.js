@@ -1,7 +1,7 @@
 if (!me) {
     cancel();
 } else {
-    this.username = this.minecraftName;
+    this.username = me.minecraftName;
 }
 
 emit('game:' + this.gameId + ':message', this);
