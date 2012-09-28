@@ -108,7 +108,30 @@
 
         li {
           padding: @spacing / 2;
+          position: relative;
+
+          .dropdown-toggle {
+            display: none;
+            position: absolute;
+            right: @spacing;
+            top: 12px;
+          }
         }
+
+        &.is-host {
+          li:not(.host) {
+            &:hover, &.active-dropdown {
+              background: #EEE;
+
+              .dropdown-toggle {
+                
+                display: block;
+              }
+            }
+          }
+        }
+
+        
       }
     }
   }

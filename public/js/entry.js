@@ -6,6 +6,7 @@ require.config({
     , "underscore": "lib/underscore-min"
     , "backbone": "lib/backbone-min"
     , "jquery-ui": "lib/jquery-ui-1.8.23.custom.min"
+    , "uikit": "lib/ui"
   },
   shim: {
     "underscore": {
@@ -14,6 +15,9 @@ require.config({
     "backbone": {
       deps: ["underscore"],
       exports: "Backbone"
+    },
+    "uikit": {
+      exports: 'ui'
     }
   }
 });
@@ -23,7 +27,6 @@ define(function(require, module, exports) {
   var ko = require('knockout')
     , appState = require('app')
     , Router = require('router');
-
 
   dpd.users.me(function(user, err) {
     appState.currentUser(user);

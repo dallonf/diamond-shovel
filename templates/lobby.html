@@ -8,7 +8,7 @@
     <a href="/" class="btn pull-right">Back</a>
     <button class="btn btn-primary pull-right" data-bind="visible: $root.currentUser() && !isPlaying(), click: join">Join this game</button>
     <button class="btn pull-right" data-bind="visible: isPlaying() && !isHost(), click: leave">Leave this game</button>
-    <a href="#" class="btn pull-right" data-bind="visible: isHost, attr: {href: '/edit/' + id}">Edit this game</a>
+    <a href="#" class="btn btn-primary pull-right" data-bind="visible: isHost, attr: {href: '/edit/' + id}">Edit this game</a>
     <i class="loader-small pull-right" data-bind="visible: saveLoading"></i>
   </div>
   <ul class="lobby-info">
@@ -16,7 +16,7 @@
       <i class="mcicon-clock"></i> <span data-bind="text: countdown"></span>
     </li>
     <li>
-      <i class="mcicon-sun"></i> <span data-bind="text: fullTime"></span>
+      <i data-bind="css: {'mcicon-sun': !isNightTime(), 'mcicon-moon': isNightTime()}" class="mcicon-sun"></i> <span data-bind="text: fullTime"></span>
     </li>
     <li data-bind="visible: isPlaying">
       <i class="mcicon-diamond"></i> You are <span data-bind="text: isHost() ? 'hosting' : 'playing'"></span>
@@ -53,10 +53,13 @@
     </div>
     <div class="players-container">
       <div class="players-stats"><span data-bind="text: playerCount"></span> / <span data-bind="text: maxPlayers"></span></div>
-      <ul class="players">
+      <ul class="players" data-bind="css: {'is-host': isHost}">
         <li class="host"><span data-bind="text: hostName"></span> (host)</li>
         <!-- ko foreach: players -->
-          <li data-bind="text: $data.minecraftName"></li>
+          <li data-bind="css: {'active-dropdown': $parent.menuPlayer() == $data}">
+            <span data-bind="text: $data.minecraftName"></span>
+            <a class="dropdown-toggle" href="#" data-bind="click: $parent.showBanMenu"><b class="caret"></b></a>
+          </li>
         <!-- /ko -->
      </ul>
     </div>

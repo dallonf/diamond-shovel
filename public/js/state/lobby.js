@@ -4,7 +4,8 @@ var ko = require('knockout')
   , koMapping = require('knockout-mapping')
   , dateFormats = require('util/date-formats')
   , timeUnits = require('util/time-units')
-  , app = require('app');
+  , app = require('app')
+  , ui = require('uikit');
 
 require('bindings/scroll-to-end');
 
@@ -43,8 +44,15 @@ function create(id) {
 
     , messages: ko.observableArray()
 
+    , menuPlayer: ko.observable()
+
     , postbox: new ko.subscribable()
   };
+
+  state.isNightTime = ko.computed(function() {
+    var date = new Date(state.date());
+    return date.getHours() > 18 || date.getHours < 6; // after 6:00 PM, before 6:00 AM
+  });
 
   state.htmlDescription = ko.computed(function() {
     return state.description().replace(/\n/g, '<br />\n');
@@ -77,11 +85,33 @@ function create(id) {
 
   });
 
+  dpd.on('game:' + state.id + ':kicked', function(param) {
+    if (isActive && app.currentUser() && param.playerId === app.currentUser().id) {
+      alert("You have been kicked from this game");
+    }
+  });
+
   dpd.on('game:' + state.id + ':message', function(message) {
     state.messages.push(message);
     setTimeout(function() {
       state.postbox.notifySubscribers(false, 'chatScroll');  
     }, 1);
+    
+  });
+
+  dpd.on('game:' + state.id + ':message:delete', function(message) {
+    var allMessages = state.messages();
+    var thisMessage;
+    for (var i = 0; i < allMessages.length; i++) {
+      if (allMessages[i].id === message.id) {
+        thisMessage = allMessages[i];
+        break;
+      }
+    }
+
+    if (thisMessage) {
+      state.messages.remove(thisMessage);
+    }
     
   });
 
@@ -137,6 +167,31 @@ function create(id) {
         }
       });
     }
+  };
+
+  var menu = ui.menu();
+  menu.add("Kick", function() {
+    state.kickPlayer(state.menuPlayer());
+  });
+  menu.on('hide', function() {
+    setTimeout(function() {
+      state.menuPlayer(null);  
+    }, 1);
+  });
+  
+
+  state.showBanMenu = function(data, e) {
+    setTimeout(function() {
+      state.menuPlayer(data);
+      menu.moveTo(e.pageX, e.pageY).show();
+    }, 10);
+    
+    e.preventDefault();
+  };
+
+  state.kickPlayer = function(data) {
+    if (!data) return;
+    dpd.kickplayer.post(data.id(), {game: id});
   };
   
   loadGame();
