@@ -21,6 +21,8 @@ function create(id) {
     , hamachiPassword: ko.observable() 
     , description: ko.observable()
 
+    , hostId: ko.observable()
+
     , date: ko.observable(isolateDate(new Date()))
     , time: ko.observable()
 
@@ -42,6 +44,15 @@ function create(id) {
       return "/lobby/" + id;
     } else {
       return "/";
+    }
+  }, state);
+
+  state.authorized = ko.computed(function() {
+    if (!app.currentUser()) return;
+    if (state.hostId()) {
+      return app.currentUser().id == state.hostId();
+    } else {
+      return app.currentUser();
     }
   }, state);
 

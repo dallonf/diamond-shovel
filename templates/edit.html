@@ -5,10 +5,13 @@
   <a class="pull-right btn" href="/" data-bind="attr: {href: backLink}">Back</a>
   <a class="pull-right btn btn-danger" href="#" data-bind="click: deleteGame, visible: id">Delete this game</a>
 </div>
+<div class="alert" data-bind="visible: $root.currentUser() && !authorized()">
+  <p>You don't own this game!</p>
+</div>
 <div class="alert" data-bind="visible: !$root.currentUser()">
   <p>You must be logged in to create a game.</p>
 </div>
-<div data-bind="if: $root.currentUser() && (!id || isLoaded())">
+<div data-bind="if: authorized() && (!id || isLoaded())">
   <div class="alert alert-error" data-bind="visible: errors, scrollTo: 'scrollToError'">
     There were errors when saving.
     <ul data-bind="foreach: errors">
