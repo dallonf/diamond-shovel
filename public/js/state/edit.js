@@ -10,9 +10,10 @@ require('bindings/integer-value');
 require('bindings/datepicker');
 require('bindings/scroll-to');
 
-function create() {
+function create(id) {
   var state = {
-      type: ko.observable()
+      id: id
+    , type: ko.observable()
     , maxPlayers: ko.observable(16)
     , serverIp: ko.observable()
     , usingHamachi: ko.observable(false)
@@ -28,11 +29,21 @@ function create() {
 
     , months: months
 
+    , isLoaded: ko.observable(false)
+
     , postbox: new ko.subscribable()
   };
 
   var now = new Date()
     , tomorrow = new Date(now.getTime() + timeUnits.DAY);
+
+  state.backLink = ko.computed(function() {
+    if (id) {
+      return "/lobby/" + id;
+    } else {
+      return "/";
+    }
+  }, state);
 
   state.dateTime = ko.computed({
       read: function() {
@@ -103,9 +114,20 @@ function create() {
     return times;
   });
 
+  state.deleteGame = function() {
+    if (confirm("Delete this game?")) {
+      dpd.games.del(id, function(res, err) {
+        if (!err) {
+          app.navigate("", true);
+        }
+      });
+    }
+  };
+
   state.submit = function() {
     var game = {
-        type: state.type()
+        id: id
+      , type: state.type()
       , maxPlayers: state.maxPlayers()
       , date: state.dateTime().toString()
       , serverIp: state.serverIp()
@@ -143,13 +165,6 @@ function create() {
 
       app.navigate('lobby/' + res.id, true);
     });
-
-    // state.errors([
-    //     "You must construct additional pylons"
-    //   , "You need to download more RAM" 
-    //   ]);
-
-    // state.postbox.notifySubscribers(null, 'scrollToError');
   };
 
   var setDateFromDateTime = function(value) {
@@ -161,27 +176,22 @@ function create() {
     state.time(time);
   };
 
-  // state.date.subscribe(function(newValue) {
-  //   //Changing the date should recalcuate everything
-  //   setTimeout(function() {
-  //     setDateFromDateTime();
-  //   }, 1);
-  // });
-
-  // state.month.subscribe(function(newValue) {
-  //   var targetMonth = months.indexOf(newValue);
-  //   setTimeout(function() {
-  //     var iterations = 4;
-  //     while(state.dateTime().getMonth() !== targetMonth) {
-  //       state.date(state.date() - 1);
-  //       iterations--;
-  //       if (iterations <= 0) break;
-  //     }
-  //   }, 1);
-  // });
-
 
   state.dateTime(tomorrow);
+
+  if (id) {
+    dpd.games.get(id, function(game, err) {
+      if (err) return app.navigate('lobby/' + id, true);
+      state.dateTime(new Date(game.date));
+      Object.keys(game).forEach(function(k) {
+        if (k === 'date') return;
+        if(typeof state[k] === 'function') {
+          state[k](game[k]);
+        }
+      });
+      state.isLoaded(true);
+    });
+  }
 
 
   return state;
@@ -192,5 +202,7 @@ function isolateDate(value) {
 }
 
 module.exports = create;
+
+
 
 });

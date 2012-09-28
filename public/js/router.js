@@ -4,7 +4,7 @@ var Backbone = require('backbone')
   , appState = require('app')
   , indexState = require('state/index')
   , registerState = require('state/register')
-  , createState = require('state/create')
+  , editState = require('state/edit')
   , lobbyState = require('state/lobby');
 
 var CustomRouter = Backbone.Router.extend({
@@ -13,6 +13,7 @@ var CustomRouter = Backbone.Router.extend({
     , "register": "register"
     , "create": "create"
     , "lobby/:id": "lobby"
+    , "edit/:id": "edit"
     , "*fallback": "fallback"
   },
 
@@ -25,11 +26,15 @@ var CustomRouter = Backbone.Router.extend({
   },
 
   create: function() {
-    appState.setPage('create', createState());
+    appState.setPage('edit', editState());
   },
 
   lobby: function(id) {
     appState.setPage('lobby', lobbyState(id));
+  },
+
+  edit: function(id) {
+    appState.setPage('edit', editState(id));
   },
 
   fallback: function() {

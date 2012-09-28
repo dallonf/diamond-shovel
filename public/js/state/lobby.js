@@ -29,6 +29,10 @@ function create(id) {
     , description: ko.observable('')
     , players: ko.observableArray()
     , hostId: ko.observable()
+    , serverIp: ko.observable()
+    , usingHamachi: ko.observable()
+    , hamachiNetwork: ko.observable()
+    , hamachiPassword: ko.observable()
 
     , now: ko.observable(new Date())
     , loaded: ko.observable(false)
@@ -66,6 +70,11 @@ function create(id) {
     return state.isHost() || (app.currentUser() && state.players().some(function(p) {
       return p.id() === app.currentUser().id; 
     }));
+  });
+
+  state.hasServerInfo = ko.computed(function() {
+    return state.serverIp() || state.usingHamachi();
+
   });
 
   dpd.on('game:' + state.id + ':message', function(message) {

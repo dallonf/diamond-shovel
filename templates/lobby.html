@@ -8,7 +8,7 @@
     <a href="/" class="btn pull-right">Back</a>
     <button class="btn btn-primary pull-right" data-bind="visible: $root.currentUser() && !isPlaying(), click: join">Join this game</button>
     <button class="btn pull-right" data-bind="visible: isPlaying() && !isHost(), click: leave">Leave this game</button>
-    <button class="btn btn-danger pull-right" data-bind="visible: isHost, click: deleteGame">Delete this game</button>
+    <a href="#" class="btn pull-right" data-bind="visible: isHost, attr: {href: '/edit/' + id}">Edit this game</a>
     <i class="loader-small pull-right" data-bind="visible: saveLoading"></i>
   </div>
   <ul class="lobby-info">
@@ -23,6 +23,20 @@
     </li>
   </ul>
   <div class="description" data-bind="html: htmlDescription, visible: description"></div>
+  <div class="server-info alert alert-info" data-bind="visible: isPlaying() && hasServerInfo()">
+    <h4>Server Info</h4>
+    <div data-bind="visible: usingHamachi">
+      <div>
+        <label>Hamachi Network:</label><span data-bind="text: hamachiNetwork"></span>
+      </div>
+      <div>
+        <label>Hamachi Password:</label><span data-bind="text: hamachiPassword"></span>
+      </div>
+    </div>
+    <div>
+      <label>IP: </label><span data-bind="text: serverIp"></span>
+    </div>      
+  </div>
   <div class="lobby-chat">
     <div class="messages-container">
       <ul class="messages" data-bind="scrollToEnd: 'chatScroll'">
@@ -48,4 +62,3 @@
     </div>
   </div>
 </div>
-&nbsp;

@@ -1,11 +1,14 @@
 <div class="clearfix">
-  <h2 class="pull-left">Plan a Game</h2>
-  <a class="pull-right btn" href="/">Back</a>
+  <h2 class="pull-left" data-bind="if: !id">Plan a Game</h2>
+  <h2 class="pull-left" data-bind="if: id">Editing Game</h2>
+
+  <a class="pull-right btn" href="/" data-bind="attr: {href: backLink}">Back</a>
+  <a class="pull-right btn btn-danger" href="#" data-bind="click: deleteGame, visible: id">Delete this game</a>
 </div>
 <div class="alert" data-bind="visible: !$root.currentUser()">
   <p>You must be logged in to create a game.</p>
 </div>
-<div data-bind="if: $root.currentUser()">
+<div data-bind="if: $root.currentUser() && (!id || isLoaded())">
   <div class="alert alert-error" data-bind="visible: errors, scrollTo: 'scrollToError'">
     There were errors when saving.
     <ul data-bind="foreach: errors">
@@ -86,10 +89,10 @@
       
     </fieldset>
     <div class="form-actions">
-      <button type="submit" class="btn btn-primary">Create</button>
-      <a href="/" class="btn">Back</a>
+      <button type="submit" class="btn btn-primary" data-bind="visible: !id">Create</button>
+      <button type="submit" class="btn btn-primary" data-bind="visible: id">Update</button>
+      <a href="/" class="btn" data-bind="attr: {href: backLink}">Back</a>
       <i class="loader-small" data-bind="visible: saving"></i>
     </div>
   </form>
-  
 </div>
