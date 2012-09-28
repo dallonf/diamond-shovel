@@ -28,11 +28,11 @@
       </div>
     </div>
     <fieldset>
-      <legend>Time</legend>
+      <legend><i class="mcicon-clock"></i> Time</legend>
       <div class="control-group">
         <label class="control-label">Date</label>
         <div class="controls">
-          <input type="text" data-bind="datepicker: date, datepickerOptions: {dateFormat: 'DD, MM d, yy', minDate: 0, maxDate: 360, showOtherMonths: true}" />
+          <input type="text" data-bind="datepicker: date, datepickerOptions: {dateFormat: 'DD, MM d, yy', minDate: 0, maxDate: 360, showOtherMonths: true, selectOtherMonths: true}" />
           <span class="help-inline" data-bind="text: dateHelpText"></span>
         </div>
       </div>
@@ -45,7 +45,7 @@
       </div>
     </fieldset>
     <fieldset>
-      <legend>Server Info <em>(optional)</em></legend>
+      <legend><i class="mcicon-compass"></i> Server Info <em>(optional)</em></legend>
       <div class="control-group">
         <label class="control-label">Server IP</label>
         <div class="controls">
@@ -77,7 +77,7 @@
       </div>
     </fieldset>
     <fieldset>
-      <legend>Description <em>(optional)</em></legend>
+      <legend><i class="mcicon-sign"></i> Description <em>(optional)</em></legend>
       <div class="control-group">
         <div class="controls">
           <textarea class="input-xxlarge" rows="5" data-bind="value: description"></textarea>

@@ -8,12 +8,13 @@
         <span class="help-inline" data-bind="text: usernameError"></span>
       </div>
     </div>
-    <div class="control-group">
+    <div class="control-group" data-bind="css: {error: minecraftNameError}">
       <label class="control-label">
         Minecraft Name<br />
       </label>
       <div class="controls">
         <input type="text" class="input-xlarge" data-bind="value: minecraftName" />
+        <span class="help-inline" data-bind="text: minecraftNameError"></span>
       </div>
     </div>
     <div class="control-group" data-bind="css: {error: confirmPasswordError() || passwordError()}">

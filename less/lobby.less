@@ -1,4 +1,9 @@
 #lobby {
+
+  h2 {
+    max-width: 415px;
+  }
+
   .lobby-info {
     margin-left: 0;
 
@@ -28,20 +33,28 @@
     
       .messages {
         // .box-flex(1);
-        height: 300px;
+        width: 100%;
+        .box-sizing(border-box);
+        height: 320px;
         .display-box();
         .box-orient(vertical);
-        .box-pack(end);
+        .box-pack(center);
         margin: 0;
         max-height: 100%;
         padding: @spacing;
         list-style: none;
         overflow-y: scroll;
+
+        .placeholder {
+          .box-flex(1);
+        }
       }
 
       .message-input {
         margin: 0;
         padding: @spacing;
+        width: 100%;
+        .box-sizing(border-box);
         .display-box();
 
         input {
@@ -74,9 +87,11 @@
         margin: 0;
         padding: @spacing;
         min-width: 150px;
+        max-width: 300px;
         border-left: @tableBorder 1px solid;
         list-style: none;
         overflow-y: scroll;
+        white-space: nowrap;
 
         li {
           padding: @spacing / 2;

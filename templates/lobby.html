@@ -22,15 +22,11 @@
       <i class="mcicon-diamond"></i> You are <span data-bind="text: isHost() ? 'hosting' : 'playing'"></span>
     </li>
   </ul>
-  <div class="description" data-bind="text: description, visible: description">
-    Rules:<br />
-    No hacking<br />
-    No griefing<br />
-    No teamkilling<br />
-  </div>
+  <div class="description" data-bind="html: htmlDescription, visible: description"></div>
   <div class="lobby-chat">
     <div class="messages-container">
       <ul class="messages" data-bind="scrollToEnd: 'chatScroll'">
+        <li class="placeholder"></li>
         <!-- ko foreach: messages -->
         <li><strong data-bind="text: username"></strong> <span data-bind="text: message"></span></li>
         <!-- /ko -->

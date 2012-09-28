@@ -39,13 +39,20 @@
         border-bottom: none;
       }
 
+      .game-name {
+        max-width: 138px;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+      }
+
       .spacer {
         .box-flex(1);
       }
 
       .time {
         .display-box();
-        .box-align(center);
+        .box-align(end);
 
         text-align: right;
       }

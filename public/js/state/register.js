@@ -76,6 +76,11 @@ function create(previousUrl) {
     }
   });
 
+  state.minecraftNameError = ko.computed(function() {
+    console.log(state.errors());
+    if (state.errors().minecraftName) return state.errors().minecraftName;
+  });
+
   state.passwordError = ko.computed(function() {
     if (state.errors().password) return state.errors().password;
   });

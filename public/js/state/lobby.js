@@ -26,7 +26,7 @@ function create(id) {
   var state = {
       id: id
     , date: ko.observable()
-    , description: ko.observable()
+    , description: ko.observable('')
     , players: ko.observableArray()
     , hostId: ko.observable()
 
@@ -41,6 +41,10 @@ function create(id) {
 
     , postbox: new ko.subscribable()
   };
+
+  state.htmlDescription = ko.computed(function() {
+    return state.description().replace(/\n/g, '<br />\n');
+  });
 
   state.playerCount = ko.computed(function() {
     return state.players().length + 1; // Including host

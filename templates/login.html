@@ -1,5 +1,6 @@
 <!-- ko with: loginState -->
 <h2>Log In <i class="loader" data-bind="visible: loading"></i></h2> 
+
 <form data-bind="submit: login">
   <div data-bind="visible: error, text: error" class="alert alert-error"></div>
   <div class="control-group">
@@ -8,7 +9,7 @@
   <input type="password" placeholder="*******" data-bind="value: password"/>
   <div>
     <button type="submit" class="btn btn-primary">Login</button>
-    <a href="/register" class="btn">Register</a>
   </div>
 </form>
+<div>Not a user? <a href="/register">Sign up</a></div>
 <!-- /ko -->
