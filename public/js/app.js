@@ -43,7 +43,7 @@ state.start = function() {
 
       // Ensure the protocol is not part of URL, meaning its relative.
       // Stop the event bubbling to ensure the link will not cause a page refresh.
-      if (href && href.slice(protocol.length) !== protocol && href.indexOf('#') !== 0) {
+      if (href && href.slice(protocol.length) !== protocol && href.indexOf('#') !== 0 && !$(this).is('.literal-link')) {
         evt.preventDefault();
 
         // Note by using Backbone.history.navigate, router events will not be
