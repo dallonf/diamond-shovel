@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" type="text/css" href="/css/style.css" />
+  <link rel="stylesheet" type="text/css" href="/css/south-street/jquery-ui-1.8.23.custom.css" />
+  <title>Diamond Shovel</title>
+  <script type="text/javascript" src="/js/lib/modernizr.js"></script>
+  
+  <script type="text/javascript">
+    if (!Modernizr.flexboxlegacy) {
+      location.href = "/browser-warning.html";
+    }
+  </script>
+  <script type="text/javascript">
+
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-35634877-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+
+  </script>
+</head>
+<body>
+  <div class="navbar">
+    <div class="navbar-inner">
+      <div class="container">
+        <a id="header-link" class="brand" href="/">
+          Diamond Shovel
+        </a>
+        <ul class="nav">
+          <li>
+            <a href="/about.html" class="literal-link">About</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div id="app-container" class="hide">
+    <div class="container" data-bind="template: 'layout-template'"></div>
+  </div> 
+  <div id="footer-container">
+    <div id="footer">
+      <div class="container">
+        &copy; Deployd 2012. "Minecraft" is a trademark of Mojang and is not affiliated with Deployd or Diamond Shovel.
+      </div>
+    </div>
+    <div id="footer-background">
+        
+    </div>
+  </div>
+  <script type="text/html" id="edit-template">
+<div class="clearfix">
+  <h2 class="pull-left" data-bind="if: !id">Plan a Game</h2>
+  <h2 class="pull-left" data-bind="if: id">Editing Game</h2>
+
+  <a class="pull-right btn" href="/" data-bind="attr: {href: backLink}">Back</a>
+  <a class="pull-right btn btn-danger" href="#" data-bind="click: deleteGame, visible: id">Delete this game</a>
+</div>
+<div class="alert" data-bind="visible: $root.currentUser() && !authorized()">
+  <p>You don't own this game!</p>
+</div>
+<div class="alert" data-bind="visible: !$root.currentUser()">
+  <p>You must be logged in to create a game.</p>
+</div>
+<div data-bind="if: authorized() && (!id || isLoaded())">
+  <div class="alert alert-error" data-bind="visible: errors, scrollTo: 'scrollToError'">
+    There were errors when saving.
+    <ul data-bind="foreach: errors">
+      <li data-bind="text: $data"></li>
+    </ul>
+  </div>
+  <form class="form-horizontal" data-bind="submit: submit">
+    <div class="control-group">
+      <label class="control-label">Game Type</label>
+      <div class="controls">
+        <input type="text" class="input-xlarge" data-bind="value: type, hasfocus: true" />
+        <span class="help-inline"></span>
+      </div>
+    </div>
+    <div class="control-group">
+      <label class="control-label">Players</label>
+      <div class="controls">
+        <input type="number" class="input-xlarge" data-bind="integerValue: maxPlayers" />
+        <span class="help-inline"></span>
+      </div>
+    </div>
+    <fieldset>
+      <legend><i class="mcicon-clock"></i> Time</legend>
+      <div class="control-group">
+        <label class="control-label">Date</label>
+        <div class="controls">
+          <input type="text" data-bind="datepicker: date, datepickerOptions: {dateFormat: 'DD, MM d, yy', minDate: 0, maxDate: 360, showOtherMonths: true, selectOtherMonths: true}" />
+          <span class="help-inline" data-bind="text: dateHelpText"></span>
+        </div>
+      </div>
+      <div class="control-group">
+        <label class="control-label">Time</label>
+        <div class="controls">
+          <select class="input-large" data-bind="options: times, optionsText: 'text', optionsValue: 'value', value: time"></select>
+          <span class="help-inline" data-bind="text: timeHelpText"></span>
+        </div>
+      </div>
+    </fieldset>
+    <fieldset>
+      <legend><i class="mcicon-compass"></i> Server Info <em>(optional)</em></legend>
+      <div class="control-group">
+        <label class="control-label">Server IP</label>
+        <div class="controls">
+          <input type="text" class="input-xlarge" placeholder="xxx.xxx.xxx.xxx" data-bind="value: serverIp" />
+        </div>
+      </div>
+      <div class="control-group">
+        <div class="controls">
+          <label class="checkbox">
+            <input type="checkbox" class="input-xlarge" data-bind="checked: usingHamachi" />
+            Using Hamachi
+            <!-- <a href="#" title="What is Hamachi?"><i class="icon-question-sign"></i></a> -->
+          </label>
+        </div>
+      </div>
+      <div data-bind="visible: usingHamachi">
+        <div class="control-group">
+          <label class="control-label">Hamachi Network ID</label>
+          <div class="controls">
+            <input type="text" class="input-xlarge" data-bind="value: hamachiNetwork"/>
+          </div>
+        </div>
+        <div class="control-group">
+          <label class="control-label">Network Password</label>
+          <div class="controls">
+            <input type="text" class="input-xlarge" data-bind="value: hamachiPassword"/>
+          </div>
+        </div>
+      </div>
+    </fieldset>
+    <fieldset>
+      <legend><i class="mcicon-sign"></i> Description <em>(optional)</em></legend>
+      <div class="control-group">
+        <div class="controls">
+          <textarea class="input-xxlarge" rows="5" data-bind="value: description"></textarea>
+        </div>
+      </div>
+      
+    </fieldset>
+    <div class="form-actions">
+      <button type="submit" class="btn btn-primary" data-bind="visible: !id">Create</button>
+      <button type="submit" class="btn btn-primary" data-bind="visible: id">Update</button>
+      <a href="/" class="btn" data-bind="attr: {href: backLink}">Back</a>
+      <i class="loader-small" data-bind="visible: saving"></i>
+    </div>
+  </form>
+</div>
+</script>
+
+<script type="text/html" id="home-page-template">
+<h2 data-bind="text: currentPage"></h2>
+</script>
+
+<script type="text/html" id="index-template">
+<div id="index">
+  <div class="clearfix">
+    <h2 class="pull-left">Upcoming Games</h2>
+    <a href="/create" class="btn btn-primary pull-right" data-bind="visible: $root.currentUser">Plan a Game</a>
+  </div>
+
+  <div class="games-empty" data-bind="visible: !orderedGames().length && loaded()">
+    <div class="alert alert-info">
+      There are no upcoming games. <a href="/create" data-bind="visible: $root.currentUser">Create one now!</a>
+    </div>
+  </div>
+  <div class="games-list" data-bind="foreach: orderedGames">
+    <div class="game-listing" data-bind="click: navigate">
+      <h3 data-bind="text: type"></h3>
+      <div class="host">hosted by <span data-bind="text: hostName"></span></div>
+      <div class="countdown" data-bind="text: countdown"></div>    
+      <div class="stats">
+        <div class="players"><span data-bind="text: $data.players ? players().length + 1 : 1"></span> / <span data-bind="text: maxPlayers"></span> players</div>
+        <span data-bind="text: formattedTime"></span><br />
+      </div>
+    </div>
+  </div>
+  <a href="#" class="load-more-btn" data-bind="click: loadMore, visible: moreAvailable">Show more... <i class="loader-small" data-bind="visible: loadingMore"></i></a>
+</div>
+</script>
+
+<script type="text/html" id="layout-template">
+<!-- ko if: !isTwoColumn() -->
+  <div data-bind="template: 'main-column-template'"></div>
+<!-- /ko -->
+<!-- ko if: isTwoColumn -->
+<div class="row">
+  <div class="span8">
+    <div data-bind="template: 'main-column-template'"></div>
+    &nbsp;
+  </div>
+  <div class="span4">
+    <div data-bind="template: {name: currentUser() ? 'user-sidebar-template' : 'login-template'}"></div>
+  </div>
+</div>
+<!-- /ko -->
+
+</script>
+
+<script type="text/html" id="lobby-template">
+<div class="alert alert-error" data-bind="visible: notFound">
+  <p>This game has been deleted by the host</p>
+  <a href="/">Back</a>
+</div>
+<div id="lobby" data-bind="if: loaded">
+  <div class="clearfix" >
+    <h2 class="pull-left">Game Lobby - <span data-bind="text: type"></span></h2>
+    <a href="/" class="btn pull-right">Back</a>
+    <button class="btn btn-primary pull-right" data-bind="visible: $root.currentUser() && !isPlaying(), click: join">Join this game</button>
+    <button class="btn pull-right" data-bind="visible: isPlaying() && !isHost(), click: leave">Leave this game</button>
+    <a href="#" class="btn btn-primary pull-right" data-bind="visible: isHost, attr: {href: '/edit/' + id}">Edit this game</a>
+    <i class="loader-small pull-right" data-bind="visible: saveLoading"></i>
+  </div>
+  <ul class="lobby-info">
+    <li>
+      <i class="mcicon-clock"></i> <span data-bind="text: countdown"></span>
+    </li>
+    <li>
+      <i data-bind="css: {'mcicon-sun': !isNightTime(), 'mcicon-moon': isNightTime()}" class="mcicon-sun"></i> <span data-bind="text: fullTime"></span>
+    </li>
+    <li data-bind="visible: isPlaying">
+      <i class="mcicon-diamond"></i> You are <span data-bind="text: isHost() ? 'hosting' : 'playing'"></span>
+    </li>
+  </ul>
+  <div class="description" data-bind="html: htmlDescription, visible: description"></div>
+  <div class="server-info alert alert-info" data-bind="visible: isPlaying() && hasServerInfo()">
+    <h4>Server Info</h4>
+    <div data-bind="visible: usingHamachi">
+      <div>
+        <label>Hamachi Network:</label><span data-bind="text: hamachiNetwork"></span>
+      </div>
+      <div>
+        <label>Hamachi Password:</label><span data-bind="text: hamachiPassword"></span>
+      </div>
+    </div>
+    <div>
+      <label>IP: </label><span data-bind="text: serverIp"></span>
+    </div>      
+  </div>
+  <div class="lobby-chat">
+    <div class="messages-container">
+      <ul class="messages" data-bind="scrollToEnd: 'chatScroll'">
+        <li class="placeholder"></li>
+        <!-- ko foreach: messages -->
+        <li><strong data-bind="text: username"></strong> <span data-bind="text: message"></span></li>
+        <!-- /ko -->
+        <li class="subtle" data-bind="visible: !isPlaying()">Join this game to see chat</li>
+      </ul>
+      <form class="message-input" data-bind="visible: isPlaying, submit: submitMessage">
+        <input type="text" data-bind="value: messageText" />
+        <button class="btn btn-primary">Send</button>
+      </form>
+    </div>
+    <div class="players-container">
+      <div class="players-stats"><span data-bind="text: playerCount"></span> / <span data-bind="text: maxPlayers"></span></div>
+      <ul class="players" data-bind="css: {'is-host': isHost}">
+        <li class="host"><span data-bind="text: hostName"></span> (host)</li>
+        <!-- ko foreach: players -->
+          <li data-bind="css: {'active-dropdown': $parent.menuPlayer() == $data}">
+            <span data-bind="text: $data.minecraftName"></span>
+            <a class="dropdown-toggle" href="#" data-bind="click: $parent.showBanMenu"><b class="caret"></b></a>
+          </li>
+        <!-- /ko -->
+     </ul>
+    </div>
+  </div>
+</div>
+</script>
+
+<script type="text/html" id="login-template">
+<!-- ko with: loginState -->
+<h2>Log In <i class="loader" data-bind="visible: loading"></i></h2> 
+
+<form data-bind="submit: login">
+  <div data-bind="visible: error, text: error" class="alert alert-error"></div>
+  <div class="control-group">
+    <input type="text" placeholder="Username" data-bind="value: username" />
+  </div>
+  <input type="password" placeholder="*******" data-bind="value: password"/>
+  <div>
+    <button type="submit" class="btn btn-primary">Login</button>
+  </div>
+</form>
+<div>Not a user? <a href="/register">Sign up</a></div>
+<!-- /ko -->
+</script>
+
+<script type="text/html" id="main-column-template">
+<div data-bind="template: {if: pageState, name: currentPage() + '-template', data: pageState}"></div>
+
+</script>
+
+<script type="text/html" id="register-template">
+<div id="register-form">
+  <h2>Register</h2>
+  <form class="form-horizontal" data-bind="submit: register">
+    <div class="control-group" data-bind="css: {error: usernameError, success: usernameAvailable() === true}">
+      <label class="control-label">Username</label>
+      <div class="controls">
+        <input type="text" class="input-xlarge" data-bind="value: username, valueUpdate: 'afterkeydown', hasfocus: true" />
+        <span class="help-inline" data-bind="text: usernameError"></span>
+      </div>
+    </div>
+    <div class="control-group" data-bind="css: {error: minecraftNameError}">
+      <label class="control-label">
+        Minecraft Name<br />
+      </label>
+      <div class="controls">
+        <input type="text" class="input-xlarge" data-bind="value: minecraftName" />
+        <span class="help-inline" data-bind="text: minecraftNameError"></span>
+      </div>
+    </div>
+    <div class="control-group" data-bind="css: {error: confirmPasswordError() || passwordError()}">
+      <label class="control-label">Password</label>
+      <div class="controls">
+        <input type="password" class="input-xlarge" data-bind="value: password" />
+        <span class="help-inline" data-bind="text: passwordError"></span>
+        <p class="help-text">This should <em>not</em> be the same as your Minecraft password!</p>
+      </div>
+    </div>
+    <div class="control-group" data-bind="css: {error: confirmPasswordError}">
+      <label class="control-label">Confirm Password</label>
+      <div class="controls">
+        <input type="password" class="input-xlarge" data-bind="value: confirmPassword, event: {blur: confirmPasswordBlurred}" />
+        <span class="help-inline" data-bind="text: confirmPasswordError, blink: postbox"></span>
+      </div>
+    </div>
+    <div class="control-group">
+      <label class="control-label">
+        Email<br />
+        <em>(Optional)</em>
+      </label>
+      <div class="controls">
+        <input type="email" class="input-xlarge" data-bind="value: email" />
+        <span class="help-inline" data-bind="text: emailError"></span>
+      </div>
+    </div>
+    <div class="form-actions">
+      <button type="submit" class="btn btn-primary">Register</button>
+      <button type="button" class="btn" data-bind="click: goBack">Back</button>
+      <i class="loader-small" data-bind="visible: saving"></i>
+    </div>
+  </form>
+</div>
+</script>
+
+<script type="text/html" id="user-sidebar-template">
+<div id="user-sidebar" data-bind="with: userSidebarState">
+  <h2>Welcome, <span data-bind="text: $root.currentUser().username"></h2>
+  <!-- <a href="#">my account</a>&nbsp;&nbsp;--><a href="#" data-bind="click: logout">logout</a>
+  <!-- <div data-bind="foreach: games"><span data-bind="text: type"></span></div> -->
+  <div class="games">
+    <h3 class="games-header">
+      Your Games <span class="badge badge-important" data-bind="visible: games().length, text: games().length"></span>
+    </h3>
+    <div class="empty" data-bind="visible: !games().length">You haven't joined any games</div>
+    <ul class="games-list" data-bind="foreach: games">
+      <li data-bind="click: navigate">
+        <div class="game-info">
+          <div class="game-name" data-bind="text: type"></div>
+          <div class="host">hosted by <span data-bind="text: hostName"></span></div>
+          <div class="countdown" data-bind="text: countdown"></div>
+        </div>
+        <div class="spacer"></div>
+        <div class="time">
+          <span data-bind="text: players ? players().length + 1 : 1"></span> / <span data-bind="text: maxPlayers"></span><br />
+          <span data-bind="text: formattedTime"></span>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>
+</script>
+
+
+
+  <script type="text/javascript" src="/js/lib/jquery-1.8.0.min.js"></script>
+  <script type="text/javascript" src="/dpd.js"></script>
+  <script type="text/javascript" src="/js/lib/require.js" data-main="/js/entry.js"></script>
+</body>
+</html>

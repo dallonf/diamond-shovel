@@ -1,3 +1,4 @@
 {
+	"onlyDevelopment": true,
 	"type": "SinglePageApp"
 }
